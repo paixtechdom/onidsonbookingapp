@@ -1,13 +1,13 @@
-import { NavInfo } from "../Constants"
+import { NavInfo } from "../../Constants"
 import { Link, useNavigate } from "react-router-dom"
 import { BiMenu, BiX } from "react-icons/bi"
 import { RiArrowDropDownFill, RiArrowDropUpFill } from "react-icons/ri"
 import { useDispatch, useSelector } from "react-redux"
-import { RootState } from "../store/AppStore"
-import { setCurrentDropDown, setCurrentDropDownIndex, setCurrentNav, toggleShowNav } from "../store/navigation/navigationSlice"
-import { DocscrollTop } from "../../App"
+import { RootState } from "../../store/AppStore"
+import { setCurrentDropDown, setCurrentDropDownIndex, setCurrentNav, toggleShowNav } from "../../store/navigation/navigationSlice"
+import { DocscrollTop } from "../../../App"
 import { useEffect } from "react"
-import logo from "../images/Onidson sm.png"
+import logo from "../../images/Onidson sm.png"
 
 
 

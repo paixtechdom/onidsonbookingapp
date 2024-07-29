@@ -1,17 +1,18 @@
 import { ChangeEvent, useEffect, useState } from "react";
-import { InputField, Select } from "../../assets/components/FormInputs";
-import { formField, main, mainChild } from "../../assets/StyleClasses";
+import { InputField, Select } from "../../assets/components/utils/FormInputs";
+import { formField, h2, main, mainChild } from "../../assets/StyleClasses";
 import { BsChevronDown } from "react-icons/bs";
-import { Locations, MaxBookingNo } from "../../assets/Constants";
+import { Locations, MaxBookingNo, Journeys as AllJourneys } from "../../assets/Constants";
 import { ArrayFromNumber } from "../../assets/Functions";
 import DatePicker from "../../assets/components/DatePicker";
+import JourneyCard from "../../assets/components/JourneyCard";
 
 
 const HomePage = () => {
   const [ formInputs, setFormInputs ] = useState({
     from: "",
     to: "",
-    noOfPersons: "",
+    noOfPersons: 0,
     date: ""
   })
   const [ showPopUp, setShowPopUp ] = useState('')
@@ -33,14 +34,47 @@ const HomePage = () => {
     setToLocations(newTo)
   }, [formInputs.to, formInputs.from])
 
+  const clearFormInputs = () => {
+    setFormInputs({
+      from: "",
+      to: "",
+      noOfPersons: 0,
+      date: ""
+    })
+  }
 
- 
+ const LocationFilteredJourneys = AllJourneys.filter(j => {
+  if(formInputs.from === "" && formInputs.to === "" ){
+    return j;
+  }
+  if(formInputs.from === j.from && formInputs.to === ""){
+    return j;
+  }
+  if(formInputs.from === "" && formInputs.to === j.to){
+    return j;
+  }
+  if(formInputs.from === j.from && formInputs.to === j.to){
+    return j;
+  }    
+})
+const Journeys = LocationFilteredJourneys.filter(j => 
+  formInputs.noOfPersons <= j.availableSeats && j
+)
 
   return (
-    <main className={main + '  '}>
-      <div className={mainChild + ' min-h-[100vh] '}>
-        
-        <form className={formField + ' '}>
+    <main className={`${main}`}>
+      <div className={`${mainChild} min-h-[100vh]`}>
+
+        {/* <h1 className="text-4xl">A LIST OF AVAILABLE SERVICES THEN THE FORM IS A SEARCH</h1>
+        ORDER BY DATE, ARRIVAL, DESTINATION
+
+        BOARDING POINTS, DROPPING POINTS, NO OF HOURS FOR JOURNEY */}
+
+
+        <form className={`${formField} lg:grid lg:grid-cols-2 gap-6 mb-[10vh]`}>
+
+          <h2 className={`${h2} col-span-2 w-full`}>Enter your travel details</h2>
+
           <InputField 
             label="Depature"
             type="text"
@@ -81,7 +115,8 @@ const HomePage = () => {
           
           <DatePicker 
             formInputs={formInputs}
-            selectedDate={formInputs.date}/>
+            selectedDate={formInputs.date}
+          />
 
           <InputField 
             label="No of Persons"
@@ -99,15 +134,25 @@ const HomePage = () => {
                 showPopUp={showPopUp}
                 name={"noOfPersons"}
                 label="No of Persons"
+                gridDisplay={'4'}
                 options = {ArrayFromNumber(MaxBookingNo)} 
                 
                 />
-            </InputField>
-
-
-        {/* /date and no of adults */}
-       
+          </InputField>
+          <button onClick={() => clearFormInputs()}>Clear form</button>
         </form>
+
+        <section className="center flex-col gap-9 mt-9 w-full">
+          <h2 className={`${h2} w-full`}>({Journeys.length}) Available journey</h2>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 w-full gap-9 gap-y-16">
+            {
+              Journeys.map(journey =>(
+                <JourneyCard key={journey.id} journey={journey}/>
+              ))
+            }
+          </div>
+        </section>
 
         
       </div>

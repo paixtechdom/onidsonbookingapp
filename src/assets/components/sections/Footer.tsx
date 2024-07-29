@@ -1,6 +1,6 @@
 import { BsEnvelopeFill, BsGeoAltFill, BsTelephoneFill } from "react-icons/bs"
 import { Link } from "react-router-dom"
-import logo from "../images/Onidson sm.png"
+import logo from "../../images/Onidson sm.png"
 import { RiWhatsappFill } from "react-icons/ri"
 
 

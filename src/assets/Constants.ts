@@ -91,16 +91,141 @@ export const Locations = [
 
 export const Journeys = [
     {
-        id: "from-to-ln",
+        id: "lagos-abuja",
         from: Locations[0].location,
         to: Locations[1].location,
-        price: "30,000",
+        price: 30000,
         date: "12, July 2024",
         time: "07:30 AM",
         availableSeats: 7,
         bookedSeats: 5,
         totalPassengers: 12
-    }
+    },
+    {
+        id: "abuja-port",
+        from: Locations[1].location,
+        to: Locations[2].location,
+        price: 45000,
+        date: "12, July 2024",
+        time: "07:30 AM",
+        availableSeats: 6,
+        bookedSeats: 6,
+        totalPassengers: 12
+    },
+    {
+        id: "abuja-lagos",
+        from: Locations[1].location,
+        to: Locations[0].location,
+        price: 30000,
+        date: "12, July 2024",
+        time: "07:30 AM",
+        availableSeats: 5,
+        bookedSeats: 7,
+        totalPassengers: 12
+    },
+    {
+        id: "port-lagos",
+        from: Locations[2].location,
+        to: Locations[0].location,
+        price: 40000,
+        date: "12, July 2024",
+        time: "07:30 AM",
+        availableSeats: 10,
+        bookedSeats: 2,
+        totalPassengers: 12
+    },
+    {
+        id: "port-abuja",
+        from: Locations[2].location,
+        to: Locations[1].location,
+        price: 45000,
+        date: "12, July 2024",
+        time: "07:30 AM",
+        availableSeats: 3,
+        bookedSeats: 9,
+        totalPassengers: 12
+    },
+    {
+        id: "lagos-port",
+        from: Locations[0].location,
+        to: Locations[2].location,
+        price: 40000,
+        date: "12, July 2024",
+        time: "07:30 AM",
+        availableSeats: 8,
+        bookedSeats: 4,
+        totalPassengers: 12
+    },
+    
+    
+    
+    
+    // {
+    //     id: "lagos-abuja",
+    //     from: Locations[0].location,
+    //     to: Locations[1].location,
+    //     price: 30000,
+    //     date: "12, July 2024",
+    //     time: "07:30 AM",
+    //     availableSeats: 7,
+    //     bookedSeats: 5,
+    //     totalPassengers: 12
+    // },
+    // {
+    //     id: "abuja-port",
+    //     from: Locations[1].location,
+    //     to: Locations[2].location,
+    //     price: 45000,
+    //     date: "12, July 2024",
+    //     time: "07:30 AM",
+    //     availableSeats: 6,
+    //     bookedSeats: 6,
+    //     totalPassengers: 12
+    // },
+    // {
+    //     id: "abuja-lagos",
+    //     from: Locations[1].location,
+    //     to: Locations[0].location,
+    //     price: 30000,
+    //     date: "12, July 2024",
+    //     time: "07:30 AM",
+    //     availableSeats: 5,
+    //     bookedSeats: 7,
+    //     totalPassengers: 12
+    // },
+    // {
+    //     id: "port-lagos",
+    //     from: Locations[2].location,
+    //     to: Locations[0].location,
+    //     price: 40000,
+    //     date: "12, July 2024",
+    //     time: "07:30 AM",
+    //     availableSeats: 10,
+    //     bookedSeats: 2,
+    //     totalPassengers: 12
+    // },
+    // {
+    //     id: "port-abuja",
+    //     from: Locations[2].location,
+    //     to: Locations[1].location,
+    //     price: 45000,
+    //     date: "12, July 2024",
+    //     time: "07:30 AM",
+    //     availableSeats: 3,
+    //     bookedSeats: 9,
+    //     totalPassengers: 12
+    // },
+    // {
+    //     id: "lagos-port",
+    //     from: Locations[0].location,
+    //     to: Locations[2].location,
+    //     price: 40000,
+    //     date: "12, July 2024",
+    //     time: "07:30 AM",
+    //     availableSeats: 8,
+    //     bookedSeats: 4,
+    //     totalPassengers: 12
+    // },
 ]
 
 

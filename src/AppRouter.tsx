@@ -3,8 +3,8 @@ import { lazy, Suspense } from 'react';
 
 import { HelmetProvider  } from 'react-helmet-async';
 import { PageNotFound } from './Pages/PageNotFound';
-import { Navbar } from './assets/components/Navbar';
-import Footer from './assets/components/Footer';
+import { Navbar } from './assets/components/sections/Navbar';
+import Footer from './assets/components/sections/Footer';
 
 
 import logo from "./assets/images/Onidson sm.png"

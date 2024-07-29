@@ -126,7 +126,7 @@ const DatePicker:FC<any> = ({ selectedDate, formInputs }) => {
   return (
     <div className="relative w-full">
       <div className="flex flex-col w-full gap-[10px] relative">
-        <label htmlFor={"Date of Birth"} className="text-sm">Date of Birth</label>
+        <label htmlFor={"Date of Birth"} className="text-sm">Date of ...</label>
         <div
           className={`flex border rounded-tl-xl rounded-br-xl border-secondary w-full px-3 items-center relative cursor-pointer`}
           onClick={() => setShowCalendar(!showCalendar)}
