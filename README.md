@@ -116,5 +116,46 @@ total = 33 / month
 
 
 
+ PAGE 2 
+ Without limiting the generality of the foregoing,
+Confidential Information includes:
+a. any idea, improvement, invention, innovation, development, technical data, design,
+formula, device, pattern, concept, art, method, process, machine, manufacturing
+method, composition of matter, computer program, software, firmware, source
+code, object code, algorithm, subroutine, object module, schematic, model, diagram,
+flow chart, chip masking specification, user manual, training or service manual,
+product specification, plan for a new or revised product, sample, compilation of
+information, or work in process, and any and all revisions and improvements relating
+to any of the foregoing (in each case whether or not reduced to tangible form); and
 
-"# onidsonbookingapp" 
+
+
+PAGE 3
+
+ I agree that all Confidential
+Information and all other discoveries, inventions, ideas, specifications, designs, concepts,
+research and other information, processes, products, methods and improvements, or
+parts thereof conceived, developed, or otherwise made by me, alone or jointly with
+others and in any way relating to the Company's business, including but not limited to its
+present or proposed products, programs or services or to tasks assigned to me during
+the Relationship, whether or not made during my normal working hours, whether or not
+patentable or subject to copyright protection, whether or not reduced to tangible form
+or reduced to practice, during the Relationship, whether or not developed, reduced to
+practice or made on the Company's premises, and whether or not disclosed by me to the
+Company (hereinafter referred to as “Company Intellectual Property"), together with all
+products or services which embody or emulate such Company Intellectual Property, will
+be the sole property of the Company and co the fullest extent permitted by law will be
+deemed "works made for hire”.
+
+
+NON-COMPETITION
+
+I will not,
+   1. participate, directly or indirectly, in any capacity, in any business activity that is, or is
+    intended to be, in direct competition with the Company.  
+    2. directly or indirectly solicit, call upon, induce, divert or take away any current or
+former customer or client of the Company, or any person or entity reasonably
+understood to be a PORSPECTIVE customer or client of the Company (each of the
+foregoing a “Company Client”), or accept an offer from any Company Client to
+provide services similar to the Services, or mandate the Services or any services
+similar to the Services to any Company Client.

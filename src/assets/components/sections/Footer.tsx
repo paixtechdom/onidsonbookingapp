@@ -25,22 +25,34 @@ const FooterLinks = [
 export const ContactInfo = [
     {
         icon: <BsGeoAltFill />,
+        text: "Location",
         contact: 'Lagos, Nigeria',
         link: "#"
     },
     {
         icon: <BsEnvelopeFill />,
+        text: "Email",
         contact: 'info@onidsontravels.com',
         link: "mailto:info@onidsontravels.com"
     },
     {
-        icon: <BsTelephoneFill />,
-        contact: '+234 912 939 7279',
-        link: "tel:+2349129397279"
-    },
-    {
         icon: <RiWhatsappFill />,
+        text: "Whatsapp",
         contact: '+234 815 788 6733',
+        link: "https://api.whatsapp.com/send?phone=2348157886733"
+    },
+    // business development
+    {
+        icon: <BsTelephoneFill />,
+        text: "Business Development",
+        contact: '+234 903 818 0112',
+        link: "https://api.whatsapp.com/send?phone=2348157886733"
+    },
+    // customer service experience
+    {
+        icon: <BsTelephoneFill />,
+        text: "Customer Service",
+        contact: '+234 708 869 6489',
         link: "https://api.whatsapp.com/send?phone=2348157886733"
     },
 ]
@@ -49,21 +61,30 @@ export const ContactInfo = [
 const Footer = () => {
     return(
         <footer className="w-full center flex-col bg-primary bg-opacity-5 pt-[10vh] lg:pt-[15vh] border-t border-primary">
-            <div className="w-11/12 lg:w-10/12 flex flex-col gap-6 text-gray-900 z-10">
+            <div className="w-11/12 xl:w-10/12 flex flex-col gap-6 text-gray-900 z-10">
                 <div className="flex flex-col md:grid md:grid-cols-4 xl:grid-cols-8 gap-y-9 md:gap-9">
 
                     <div className="flex flex-col gap-2 col-span-2 xl:col-span-3">
                         <img src={logo} alt="Company's Logo" className="w-4/12"/>
+                        {/* <h2 className="text-2xl text-black font-bold">Onidson travels & and tours</h2> */}
+                     
+
                         <div className="flex flex-col gap-3 mt-6 ">
                         {
                             ContactInfo.map((info, i) => (
-                                <div key={i} className="flex items-center gap-2">
-                                    {info.icon}
+                                <div key={i} className="flex flex-col gap-2 w-full">
 
-                                    <a href={info.link}>{info.contact}</a>
+                                    <div key={i} className="flex items-center gap-2">
+                                        {info.icon}
+                                        <p>
+                                            {info.text}
+                                        </p>
+
+                                    </div>
+                                    <a href={info.link} className="pl-6">{info.contact}</a>
                                 </div>
                             ))
-                    }
+                        }
                 </div>
                     </div>
 

@@ -1,3 +1,24 @@
+export const formatId = (id: string) => {
+  return id.trim()
+          .replace("-","")
+          .replace(" ","")
+          .replace(" ","")
+          .replace(" ","")
+          .replace(" ","")
+          .replace(" ","")
+          .replace(" ","")
+          .replace(" ","")
+          .replace(" ","")
+          .replace(" ","")
+          .replace(" ","")
+          .replace("&","")
+          .replace(".","")
+          .replace("/","")
+          .replace("'","")
+          .replace(":","")
+}
+
+
 export  const ArrayFromNumber = (num: number): number[] => {
     return Array.from({length: num}, (_, i) => i + 1)
   }

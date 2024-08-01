@@ -1,5 +1,6 @@
 import { FC } from "react"
 import { BiX } from "react-icons/bi"
+import { getFormSubmissionInfo } from "react-router-dom/dist/dom"
 
 export interface InputFieldInterface {
     label: string,
@@ -7,9 +8,9 @@ export interface InputFieldInterface {
     name: string,
     className?: string
     handleChange: Function,
-    value: string,
+    value: string | number,
     placeholder?: string,
-    formInputs?: any,
+    formInputs?: string,
     icon?: JSX.Element,
     children?: JSX.Element,
     isRequired?: boolean, 
@@ -19,7 +20,7 @@ export interface InputFieldInterface {
 }
 
 
-export const InputField:FC<InputFieldInterface> = ({type, label, className, handleChange, name, value, icon, children, isRequired, isReadonly, func }) => {
+export const InputField:FC<InputFieldInterface> = ({type, label, className, handleChange, name, value, icon, children, isRequired, isReadonly, func, placeholder }) => {
     return(
         <div className={`flex flex-col w-full gap-2 ${className} relative`}>
             <label htmlFor={label} className={`${value !== "" ? "font-bold text-secondary" : "text-gray-600"}`}>
@@ -40,7 +41,8 @@ export const InputField:FC<InputFieldInterface> = ({type, label, className, hand
                         required
                         value={value}
                         readOnly={isReadonly}
-                        className={`bg-transparent border-none w-full outline-white ${func ? 'cursor-pointer' : ''}`}
+                        placeholder={placeholder}
+                        className={`bg-transparent border-none w-full outline-white ${func && children !== undefined ? 'cursor-pointer' : ''}`}
                     />
                 <div className="text-xl cursor-pointer">{icon}</div>
             </div>
@@ -76,7 +78,7 @@ export const Select:FC<selectInterface> = ({setShowPopUp, showPopUp, options, fo
                     <BiX className="text-3xl bg-white rounded-full p-1 size-8 btn"/>
                 </div>
 
-                <div className={`${gridDisplay ? `grid grid-cols-${gridDisplay}` : "flex flex-col"}  gap-3 w-full`}>
+                <div className={`${gridDisplay ? `grid grid-cols-5` : "flex flex-col"}  gap-3 w-full`}>
 
                     {
                         options?.map((o, i) => (
@@ -96,3 +98,36 @@ export const Select:FC<selectInterface> = ({setShowPopUp, showPopUp, options, fo
 
 
 
+interface radioSelectInterface {
+    options: string[]
+    formInputs?:any
+    label: string
+    isRequired:boolean,
+    name: string,
+    setFormInputs: any
+}
+export const RadioSelect:FC<radioSelectInterface> = ({options, formInputs, label, isRequired,name, setFormInputs }) => {
+    return(
+        <div className={`flex flex-col w-full gap-2 relative`}>
+            <label htmlFor={label} className={`${formInputs[name] !== "" ? "font-bold text-secondary" : "text-gray-600"}`}>
+                {label}
+                {isRequired ? <span className="text-red-600 ml-1">*</span> : ''}
+            </label>
+            <div className="flex flex-col gap-2">
+                {
+                    options.map((o, i) => (
+                        <div key={i} className="flex items-center gap-2 cursor-pointer" onClick={() => {
+                            setFormInputs({
+                                ...formInputs, 
+                                [name]: o
+                            })
+                         }}>
+                            <div className={`size-5 transition-ll duration-1000 rounded-full ${formInputs[name] == o ? "bg-primary border-0" : "bg-gray-100 border border-gray-400"}`}></div>
+                            <span className={`${formInputs[name] == o ? "font-bold" : "last:"}`}>{o}</span>
+                        </div>
+                    ))
+                }
+            </div>
+        </div>
+    )
+}

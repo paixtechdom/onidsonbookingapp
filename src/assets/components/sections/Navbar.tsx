@@ -13,12 +13,15 @@ import logo from "../../images/Onidson sm.png"
 
 export const Navbar = () => {
     const navigation = useSelector((state: RootState) => state.navigation)
+    const user = useSelector((state: RootState) => state.user)
     const dispatch = useDispatch()
     const showNav = navigation.showNavbar
     const currentNav = navigation.currentNav
     const currentDropDownIndex = navigation.currentDropDownIndex
     const scrolledDown = navigation.scrolledDown
     const currentDropDown = navigation.currentDropDown
+    const sessionToken = user.sessionToken
+    const userName = user.userDetails.firstName
 
 
     const navigate = useNavigate()
@@ -58,13 +61,7 @@ export const Navbar = () => {
                     
                 </Link>
 
-                <div className={`bi bi-${showNav ? 'x-lg' : 'list'} text-blue text-3xl lg:hidden cursor-pointer text-black`}  onClick={() => dispatch(toggleShowNav())}>
-                    {
-                        showNav ? 
-                        <BiX /> :
-                        <BiMenu  />
-                    }
-                </div>                
+                              
                 
                 
 
@@ -108,7 +105,7 @@ export const Navbar = () => {
                                         {
                                             nav.sublinks ?
                                             <div className={`flex flex-col gap-[1px] w-full overflow-hidden transition-all duration-200 lg:duration-1000 lg:absolute lg:min-w-[250px] bg-opacity-20 lg:bg-opacity-100 bg-primary
-                                            ${currentDropDown == nav.title ? 'lg:top-[7vh] lg:left-0' : 'h-0 lg:h-fit text-[0px]  lg:-top-[500px]'} lg:shadow-xl`}>
+                                            ${currentDropDown == nav.title ? 'lg:top-[7vh] lg:left-0' : 'h-0 lg:h-fit text-[0px]  lg:-top-[350px]'} lg:shadow-xl`}>
         
                                                 {   
                                                     nav?.sublinks?.map((sublink:any, j:number) => (
@@ -136,9 +133,39 @@ export const Navbar = () => {
                                     </div>
                                 ))
                             }
-                            
+                            {
+                                sessionToken == undefined &&
+                                <Link to="/login">
+                                    Login
+                                </Link>                               
+                               
+                            }
                         </nav>
-                    </div>
+                </div>
+                
+
+                <div className="flex items-center justify-end gap-3 ml-9">
+
+                    <div className={`bi bi-${showNav ? 'x-lg' : 'list'} text-blue text-3xl lg:hidden cursor-pointer text-black`}  onClick={() => dispatch(toggleShowNav())}>
+                        {
+                            showNav ? 
+                            <BiX /> :
+                            <BiMenu  />
+                        }
+                    </div>  
+                    
+                    {
+                        sessionToken !== undefined &&
+                        <Link to="/profile" className="relative size-10 center border-2 rounded-full border-secondary bg-secondary cursor-pointer">
+                            <div className="center font-bold text-xl text-white">
+                                {userName[0]}
+                            </div>
+                        </Link>
+                    }
+
+                    {/* profile & settings, logout */}
+                </div>
+
             </div>
 
             

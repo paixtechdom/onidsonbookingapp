@@ -11,20 +11,24 @@ const Alert = () => {
     const alertMessage = alert.alertMessage
     const showAlert = alert.showAlert
     
+    let alertDuration = alertType == "info" ? 5000 : 3000
 
     useEffect(() => {
         if(showAlert){
             setTimeout(() => {
                 dispatch(toggleShowAlert(false))
-            }, 3000);
+            }, alertDuration);
         }
     }, [showAlert])
     
   return (
     <div className={`fixed z-[100] transition-all duration-500 ease-in-out ${showAlert ? "bottom-[5vh] lg:bottom-[10vh]" : "-bottom-[15vh]"}  left-0 w-full center h-[10vh] lg:h-[12vh]`}>
-        <div className={`bg-white w-11/12 md:w-9/12 lg:w-7/12 xl:w-5/12 rounded-xl flex items-center justify-between h-full shadow-xl px-3
-            border-l-[16px] lg:border-l-[20px] ${
-            alertType == "success" ? "border-green-700" : "border-red-700"
+        <div className={`bg-secondary bg-opacity-20 backdrop-blur-3xl w-11/12 md:w-9/12 lg:w-7/12 xl:w-5/12 rounded-xl flex items-center justify-between h-full shadow-xl px-3
+            border-l-[16px] lg:border-l-[25px] ${
+            alertType == "success" ? "border-green-700" :
+            alertType == "info" ? "border-blue-700" :
+            alertType == "error" ? "border-blue-900" :
+             "border-red-700"
         }
         `}>
             <p className="">

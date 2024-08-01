@@ -1,20 +1,29 @@
 import { ChangeEvent, useEffect, useState } from "react";
-import { InputField, Select } from "../../assets/components/utils/FormInputs";
-import { formField, h2, main, mainChild } from "../../assets/StyleClasses";
+import { InputField, Select } from "../../../assets/components/utils/FormInputs";
+import { formField, h2, main, mainChild } from "../../../assets/StyleClasses";
 import { BsChevronDown } from "react-icons/bs";
-import { Locations, MaxBookingNo, Journeys as AllJourneys } from "../../assets/Constants";
-import { ArrayFromNumber } from "../../assets/Functions";
-import DatePicker from "../../assets/components/DatePicker";
-import JourneyCard from "../../assets/components/JourneyCard";
+import { Locations, MaxBookingNo, Journeys as AllJourneys } from "../../../assets/Constants";
+import { ArrayFromNumber } from "../../../assets/Functions";
+import DatePicker from "../../../assets/components/DatePicker";
+import JourneyCard from "../../../assets/components/JourneyCard";
+import { setAlertMessage, setAlertType, toggleShowAlert } from "../../../assets/store/AlertSlice";
+import { useDispatch } from "react-redux";
 
 
-const HomePage = () => {
+const BookJourney = () => {
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(toggleShowAlert(true))
+    dispatch(setAlertMessage("Online flight booking coming soon"))
+    dispatch(setAlertType("info"))
+  }, [])
   const [ formInputs, setFormInputs ] = useState({
     from: "",
     to: "",
     noOfPersons: 0,
     date: ""
   })
+
   const [ showPopUp, setShowPopUp ] = useState('')
   const [ fromLocations, setFromLocations ] = useState<any>([])
   const [ toLocations, setToLocations ] = useState<any>([])
@@ -44,22 +53,26 @@ const HomePage = () => {
   }
 
  const LocationFilteredJourneys = AllJourneys.filter(j => {
-  if(formInputs.from === "" && formInputs.to === "" ){
-    return j;
-  }
-  if(formInputs.from === j.from && formInputs.to === ""){
-    return j;
-  }
-  if(formInputs.from === "" && formInputs.to === j.to){
-    return j;
-  }
-  if(formInputs.from === j.from && formInputs.to === j.to){
-    return j;
-  }    
-})
-const Journeys = LocationFilteredJourneys.filter(j => 
-  formInputs.noOfPersons <= j.availableSeats && j
-)
+    if(formInputs.from === "" && formInputs.to === "" ){
+      return j;
+    }
+    if(formInputs.from === j.from && formInputs.to === ""){
+      return j;
+    }
+    if(formInputs.from === "" && formInputs.to === j.to){
+      return j;
+    }
+    if(formInputs.from === j.from && formInputs.to === j.to){
+      return j;
+    }    
+  })
+
+  const Journeys = LocationFilteredJourneys.filter(j => 
+    formInputs.noOfPersons <= j.availableSeats && j
+  )
+
+
+  // fetch all journeys that have not expired and pass the journey as an argurment
 
   return (
     <main className={`${main}`}>
@@ -71,7 +84,7 @@ const Journeys = LocationFilteredJourneys.filter(j =>
         BOARDING POINTS, DROPPING POINTS, NO OF HOURS FOR JOURNEY */}
 
 
-        <form className={`${formField} lg:grid lg:grid-cols-2 gap-6 mb-[10vh]`}>
+        <form className={`${formField}`}>
 
           <h2 className={`${h2} col-span-2 w-full`}>Enter your travel details</h2>
 
@@ -92,7 +105,7 @@ const Journeys = LocationFilteredJourneys.filter(j =>
                 name={"from"}
                 label="Depature"
                 options = {fromLocations} />
-           </InputField>
+          </InputField>
 
           <InputField 
             label="Select Destination"
@@ -139,16 +152,22 @@ const Journeys = LocationFilteredJourneys.filter(j =>
                 
                 />
           </InputField>
+
           <button onClick={() => clearFormInputs()}>Clear form</button>
+
         </form>
 
-        <section className="center flex-col gap-9 mt-9 w-full">
-          <h2 className={`${h2} w-full`}>({Journeys.length}) Available journey</h2>
+        <section className="center flex-col  gap-9 mt-9 w-full">
+          <h2 className={`${h2} w-full`}>({Journeys.length}) Available journey{Journeys.length > 1 ? 's' : ""}</h2>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 w-full gap-9 gap-y-16">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 w-full gap-9 lg:gap-6 xl:gap-9 gap-y-16">
             {
               Journeys.map(journey =>(
-                <JourneyCard key={journey.id} journey={journey}/>
+                <JourneyCard 
+                  key={journey.id} 
+                  journeyProps={journey} 
+                  button_text={"Book Now"}
+                />
               ))
             }
           </div>
@@ -160,4 +179,4 @@ const Journeys = LocationFilteredJourneys.filter(j =>
   )
 }
 
-export default HomePage;
+export default BookJourney;
