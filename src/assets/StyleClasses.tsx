@@ -3,9 +3,9 @@ export const main = 'w-full min-h-screen center flex-col relative pt-[10vh] lg:p
 export const mainChild = 'w-11/12 lg:w-10/12 text-secondary flex flex-col';
 
 
-export const formField = 'center flex-col gap-8 lg:grid lg:grid-cols-2 gap-6 mb-[10vh]';
+export const formField = 'center flex-col gap-8 lg:grid lg:grid-cols-2 gap-6 mb-[10vh] p-9 shadow-md shadow-secondaryFade bg-primary Fade bg-opacity-[0.01] rounded-tl-3xl rounded-br-3xl';
 
-export const h2 = "text-xl font-bold"
+export const h2 = "text-2xl font-bold"
 
 export const fadedBold = "font-bold text-gray-500 text-sm"
 

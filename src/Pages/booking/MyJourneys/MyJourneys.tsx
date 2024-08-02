@@ -1,7 +1,10 @@
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { h2, main, mainChild } from "../../../assets/StyleClasses"
-import { BookingInfo, Journeys } from "../../../assets/Constants"
+import { BookingInfo } from "../../../assets/Constants"
 import JourneyCard from "../../../assets/components/JourneyCard"
+import { useEffect } from "react"
+import { useSelector } from "react-redux"
+import { RootState } from "../../../assets/store/AppStore"
 
 /*
     PROFILE - first name 
@@ -23,7 +26,16 @@ import JourneyCard from "../../../assets/components/JourneyCard"
 
 const MyJourneys = () => {
     const userId = useParams()
-    console.log(userId.id)
+    // console.log(userId.id)
+    const navigate = useNavigate()
+    const user = useSelector((state: RootState) => state.user)
+    const sessionToken = user.sessionToken
+
+    useEffect(() => {
+      if(sessionToken == undefined){
+        navigate(`/Login?Booking/my-journeys`)
+      }
+    }, [])
 
     // fetch all bookings where id == user id
 
@@ -44,7 +56,7 @@ const MyJourneys = () => {
             
         
         <section className="center flex-col gap-9 mt-9 w-full">
-          <h2 className={`${h2} w-full`}>({Journeys.length}) Available journey{Journeys.length > 1 ? 's' : ""}</h2>
+          <h2 className={`${h2} w-full`}>({BookingInfo.length}) My journey{BookingInfo.length > 1 ? 's' : ""}</h2>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 w-full gap-9 gap-y-16">
             {

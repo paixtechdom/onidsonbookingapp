@@ -30,8 +30,8 @@ const initialState: userInterface  = {
         email: "",
         phoneNumber: ""
     },
-    bookedJourneys: [""],
-    sessionToken: "undefined"    
+    bookedJourneys: ["lagos-abuja"],
+    sessionToken: "undefined"
 }
 
  

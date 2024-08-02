@@ -25,12 +25,12 @@ import Polytechnique from "../../../assets/images/Polytechnique.jpg"
 import HEC from "../../../assets/images/HEC.jpg"
 import Heidelberg from "../../../assets/images/Heidelberg.jpg"
 import Berlin from "../../../assets/images/Berlin.jpg"
-import { BeforeFooter } from "../../../assets/components/BeforeFooter"
+import { BeforeFooter } from "../../../assets/components/sections/BeforeFooter"
 import Munich from "../../../assets/images/Munich.jpg"
 import { LazyLoadImage } from "react-lazy-load-image-component"
 import  "react-lazy-load-image-component/src/effects/blur.css"
 import  "react-lazy-load-image-component/src/effects/opacity.css"
-import { OtherHeros } from "../../../assets/components/OtherHeros";
+import { OtherHeros } from "../../../assets/components/sections/OtherHeros";
 
 const StudyAbroadPage = () => {
     const universities = [

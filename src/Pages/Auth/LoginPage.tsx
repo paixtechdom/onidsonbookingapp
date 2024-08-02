@@ -8,7 +8,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom'
 const LoginPage = () => {
   const navigate = useNavigate()
   const location = useLocation()
-  const journeyId = location.search.split('?')[1]
+  const redirectTo = location.search.split('?')[1]
 
   const [ formInputs, setFormInputs ] = useState({
     email: "",
@@ -28,10 +28,12 @@ const LoginPage = () => {
     
   },[])
   const Login = () => {
-    if(journeyId == undefined){
+    if(redirectTo == undefined){
       navigate('/dashboard')
+    }else if (redirectTo.includes('/')){
+      navigate(`/${redirectTo}`)
     }else{
-      navigate(`/journey/${journeyId}`)
+      navigate(`/journey/${redirectTo}`)
     }
   }
 
@@ -75,7 +77,7 @@ const LoginPage = () => {
               />
             </div>
 
-            <Link to={'/signup'} className="mt-4 font-bold">
+            <Link to={`/signup?${redirectTo}`} className="mt-4 font-bold">
               Don't have an account? <span className='text-blue-600 underline'>Create account</span>
             </Link>
           </form>

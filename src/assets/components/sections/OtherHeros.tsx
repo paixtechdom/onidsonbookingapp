@@ -1,9 +1,9 @@
 import { FC } from "react"
-import { Button } from "./Button"
-import { HeroComponentInterface } from "../Interfaces"
-import { BreadCrumbs } from "./BreadCrumbs"
+import { Button } from "../Button"
+import { HeroComponentInterface } from "../../Interfaces"
+import { BreadCrumbs } from "../BreadCrumbs"
 import { BsTelephoneFill } from "react-icons/bs"
-import { Parallax } from "./Parallax"
+import { Parallax } from "../Parallax"
 
 
 

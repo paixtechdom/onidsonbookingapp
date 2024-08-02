@@ -9,11 +9,12 @@ const EmailVerificationPage = () => {
     const navigate = useNavigate()
     const location = useLocation()
     const email = location.search.split('?')[1]
+    const journeyId = location.search.split('?')[2]
     // console.log(email)
     
     useEffect(() => {
         if(email == "" || email == undefined){
-            navigate("/login")
+            navigate(`/login?${journeyId}`)
         }
 
     }, [])
@@ -70,7 +71,7 @@ const EmailVerificationPage = () => {
                     }
                 </div>
                 
-                <Link to={"/login"}>
+                <Link to={`/login?${journeyId}`}>
                     <Button 
                         text={'Submit'}
                         className='bg-secondary text-white'

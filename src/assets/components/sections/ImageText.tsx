@@ -1,6 +1,6 @@
 import { BsArrowRight } from "react-icons/bs"
-import { Button } from "./Button"
-import { ImageTextInterface } from "../Interfaces"
+import { Button } from "../Button"
+import { ImageTextInterface } from "../../Interfaces"
 import { FC } from "react"
 // import { LazyLoadImage } from "react-lazy-load-image-component"
 // import  "react-lazy-load-image-component/src/effects/blur.css"

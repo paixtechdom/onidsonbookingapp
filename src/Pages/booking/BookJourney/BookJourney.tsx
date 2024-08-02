@@ -8,6 +8,7 @@ import DatePicker from "../../../assets/components/DatePicker";
 import JourneyCard from "../../../assets/components/JourneyCard";
 import { setAlertMessage, setAlertType, toggleShowAlert } from "../../../assets/store/AlertSlice";
 import { useDispatch } from "react-redux";
+import { Button } from "../../../assets/components/utils/Button";
 
 
 const BookJourney = () => {
@@ -85,6 +86,9 @@ const BookJourney = () => {
 
 
         <form className={`${formField}`}>
+          <p className="text-xl  font-bold text-red-600">
+            FILTER BY DATE
+          </p>
 
           <h2 className={`${h2} col-span-2 w-full`}>Enter your travel details</h2>
 
@@ -153,7 +157,12 @@ const BookJourney = () => {
                 />
           </InputField>
 
-          <button onClick={() => clearFormInputs()}>Clear form</button>
+          <div onClick={() => clearFormInputs()} className="col-span-2 center mt-3">
+            <Button 
+              text="CLEAR INPUTS"  
+              className="bg-secondary text-white w-full lg:w-5/12"
+            />
+          </div>
 
         </form>
 

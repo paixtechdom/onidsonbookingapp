@@ -1,9 +1,9 @@
 import { FaBriefcase, FaRegCalendarCheck, FaMoneyCheckAlt, FaCheckCircle } from 'react-icons/fa';
 import { useEffect, useState } from 'react';
-import { BeforeFooter } from '../../../assets/components/BeforeFooter';
+import { BeforeFooter } from '../../../assets/components/sections/BeforeFooter';
 import { Helmet } from 'react-helmet-async';
 import agent from "../../../assets/images/agent.jpg"
-import { OtherHeros } from '../../../assets/components/OtherHeros';
+import { OtherHeros } from '../../../assets/components/sections/OtherHeros';
 
 
 const JobsPage = () => {

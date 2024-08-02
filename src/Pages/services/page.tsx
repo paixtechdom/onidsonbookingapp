@@ -1,12 +1,12 @@
 import { servicesList } from "../../assets/Constants"
-import { ImageText } from "../../assets/components/ImageText"
-import { OtherHeros } from "../../assets/components/OtherHeros"
+import { ImageText } from "../../assets/components/sections/ImageText"
+import { OtherHeros } from "../../assets/components/sections/OtherHeros"
 import visa from "../../assets/images/visa.jpg"
 import { CardParent } from "../../assets/components/Card/CardParent"
 import { ImageExtras } from "../../assets/components/ImageExtras"
 import { PiCheck } from "react-icons/pi"
 import hero from "../../assets/images/hero1.jpg"
-import { BeforeFooter } from "../../assets/components/BeforeFooter"
+import { BeforeFooter } from "../../assets/components/sections/BeforeFooter"
 import { Helmet } from "react-helmet-async"
 
 

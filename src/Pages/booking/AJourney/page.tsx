@@ -20,19 +20,29 @@
 */
 
 import { Link, useParams } from "react-router-dom"
-import { availableSeat, bookedSeat, fadedBold, h2, main, mainChild, selectedSeat } from "../../../assets/StyleClasses"
+import { availableSeat, bookedSeat, fadedBold, formField, h2, main, mainChild, selectedSeat } from "../../../assets/StyleClasses"
 import { useEffect, useState } from "react"
-import { Journeys } from "../../../assets/Constants"
+import { BookingInfo, Journeys } from "../../../assets/Constants"
 import { journey } from "../../../assets/components/JourneyCard"
-import { format } from "date-fns"
+import { format, formatDate } from "date-fns"
 import { ArrayFromNumber, FormatPrice } from "../../../assets/Functions"
 import { Button } from "../../../assets/components/utils/Button"
 import { GiSteeringWheel } from "react-icons/gi"
 import { useDispatch, useSelector } from "react-redux"
 import { RootState } from "../../../assets/store/AppStore"
 import { setAlertMessage, setAlertType, toggleShowAlert } from "../../../assets/store/AlertSlice"
+import AnInfo from "../../../assets/components/utils/AnInfo"
 
 
+interface bookingDetailsInterface {
+    id: string,
+    journeyId: string,
+    userId: string,
+    date: string,
+    noBookedSeats: number,
+    status: string,
+    time: string
+}
 
 const JourneyPage = () => {
     const user = useSelector((state: RootState) => state.user)
@@ -55,7 +65,15 @@ const JourneyPage = () => {
     })
 
     const [ selectedSeats, setSelectedSeats ] = useState<number[]>([])
-    const [ bookedJourney, setBookedJourney ] = useState(false)
+    const [ bookingDetails, setBookingDetails ] = useState({
+        id: "",
+        journeyId: "",
+        userId: "",
+        date: "",
+        noBookedSeats: 0,
+        status: "",
+        time: "",
+    })
 
 
     
@@ -64,12 +82,20 @@ const JourneyPage = () => {
     useEffect(() => {
         let journeys = Journeys.filter(j => j.id == id.id && j)
         setJourney(journeys[0])
-        console.log(journeys[0])
+        // console.log(journeys[0])
 
-        if(bookedJourneys.includes(journeys[0]["id"])){
-            setBookedJourney(true)
+        if(bookedJourneys.includes(journeys[0].id)){
+
+            // fetch booking details
+            let matched_booking_info = BookingInfo.filter(info => info.journeyId == journeys[0].id)
+            setBookingDetails(matched_booking_info[0])
+            
         }
+
+
+        
     }, [])
+
 
     // const addSeatNumber = (a : number) : void => {
     //     if(selectedSeats.includes(a)){
@@ -101,11 +127,39 @@ const JourneyPage = () => {
         <main className={`${main}`}>
             <div className={`${mainChild} center min-h-screen`}>
                 <div className="center flex-col w-full">
+
+                    {
+                        sessionToken !== undefined && 
+                        bookingDetails.id !== ""  ?
+                        <section className={`${formField} w-full`}>
+                            <h2 className={`${h2} w-full col-span-2`}>Booking Details</h2>
+                            <AnInfo 
+                                title="Booking Status"
+                                info={bookingDetails.status}
+                            />
+                            <AnInfo 
+                                title="Date Booked"
+                                info={formatDate(bookingDetails.date|| new Date(), 'dd-MM-yy')}
+                            />
+                            <AnInfo 
+                                title="Time Booked"
+                                info={bookingDetails.time}
+                            />
+                            <AnInfo 
+                                title="Seats Booked"
+                                info={bookingDetails.noBookedSeats}
+                            />
+                        </section> : ""
+                    } 
+
+                    {/* BOOKING INFO */}                
+
+                    
                     <h2 className={`${h2} w-full mb-[8vh]`}>Journey Details</h2>
 
                     {/* JOURNEY INFO */}
-                    <div className="flex flex-col lg:flex-row gap-[150px] w-full">
-                    <section className="flex flex-col gap-6 w-full min-h-[80vh]">
+                    <div className="flex flex-col lg:flex-row gap-x-[150px] w-full relative">
+                        <section className="flex flex-col gap-6 w-full min-h-[80vh]">
 
                         <div className="flex flex-col gap-2 mb-3">
 
@@ -125,7 +179,7 @@ const JourneyPage = () => {
                         </div>
 
 
-                        <div className="flex items-center justify-between">
+                        <div className="flex items-start justify-between">
                             <div className="flex flex-col gap-1 w-6/12">
                                 <p>Departure</p>
                                 <p className="font-bold">
@@ -195,7 +249,7 @@ const JourneyPage = () => {
                                     />
                                 </Link> : 
                                 
-                                !bookedJourney &&
+                                bookingDetails.id !== "" &&
 
                                 <Link to={`/payment?${journey.id}`} className="w-full lg:w-fit">
                                     <Button 
@@ -208,14 +262,14 @@ const JourneyPage = () => {
 
                         </section>
 
-                        <div className="w-full h-[50vh] bg-secondary center text-white">
+                        <div className="w-full h-[50vh] bg-secondary center text-white sticky top-[20vh]">
                             MAP
                         </div>
                     </div>
                         
 
 
-                    LIST OF ALL THE PEOPLE WHO BOOKED THE JOURNEY
+                    LIST OF ALL THE PEOPLE WHO BOOKED THE JOURNEY IF ADMIN
                     {/* IMAGE OF SEATS */}
                     {/* buses structures differ */}
                     {/* <section className="flex flex-col justify-center gap-6 w-full mt-[19vh]">

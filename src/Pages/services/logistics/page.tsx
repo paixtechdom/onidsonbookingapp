@@ -1,14 +1,14 @@
 import { useEffect } from "react"
 import { servicesList } from "../../../assets/Constants"
 import { ListingCardParent } from "../../../assets/components/Card/ListingCardParent"
-import { OtherHeros } from "../../../assets/components/OtherHeros"
+import { OtherHeros } from "../../../assets/components/sections/OtherHeros"
 import { useDispatch } from "react-redux"
-import { ImageText } from "../../../assets/components/ImageText"
+import { ImageText } from "../../../assets/components/sections/ImageText"
 import { ImageExtras } from "../../../assets/components/ImageExtras"
 import { FaPassport } from "react-icons/fa6"
 import { setCurrentDropDown, setCurrentDropDownIndex, setCurrentNav } from "../../../assets/store/navigation/navigationSlice"
 import naija from "../../../assets/images/naija.jpg"
-import { BeforeFooter } from "../../../assets/components/BeforeFooter"
+import { BeforeFooter } from "../../../assets/components/sections/BeforeFooter"
 import { Helmet } from "react-helmet-async"
 
 

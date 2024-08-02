@@ -17,7 +17,7 @@ USER PAGE
 
 
 
-1. ADMIN PANEL
+1. ADMIN PANEL 
   * Updating information, price, location, seat remaining, availabilty, time, generating report
   * Manage Users, payment, tracking movement
   * Manage staffs on the platform

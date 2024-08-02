@@ -876,8 +876,18 @@ export const BookingInfo = [
         date: "1, July 2024",
         noBookedSeats: 4,
         status: "booked",
-        timeOfBooking: "should be based on time of payment confirmation"
-    }
+        time: "should be based on time of payment confirmation"
+    },
+    {
+        id: "id of this new",
+        // journey id is to get the details of the journey
+        journeyId: Journeys[1].id,
+        userId: "to get the details of the user",
+        date: "1, July 2024",
+        noBookedSeats: 8,
+        status: "booked",
+        time: "should be based on time of payment confirmation"
+    },
 ]
 
 export const MaxBookingNo = 20

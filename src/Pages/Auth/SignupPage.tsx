@@ -2,10 +2,12 @@ import { ChangeEvent, useState } from 'react'
 import { main, mainChild } from '../../assets/StyleClasses'
 import { InputField, RadioSelect } from '../../assets/components/utils/FormInputs'
 import { Button } from '../../assets/components/utils/Button'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { BsEyeFill, BsEyeSlashFill, BsFillEnvelopeFill, BsPersonFill, BsTelephoneFill } from 'react-icons/bs'
 
 const SignupPage = () => {
+  const location = useLocation()
+  const redirectTo = location.search.split('?')[1]
     const [ formInputs, setFormInputs ] = useState({
       firstName: "",
       email: "",
@@ -106,7 +108,7 @@ const SignupPage = () => {
               isRequired = {true}  
               func={() => setShowPassword(!showPassword)}
             />
-            <Link to={`/email_verification?${formInputs.email}`} className='w-full mt-5'>
+            <Link to={`/email_verification?${formInputs.email}?${redirectTo}`} className='w-full mt-5'>
               <Button 
                 text='Create Account'
                 className='bg-secondary text-white w-full font-bold py-3'

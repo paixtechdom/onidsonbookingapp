@@ -1,5 +1,5 @@
 import { BsTelephoneFill } from "react-icons/bs"
-import { Button } from "./Button"
+import { Button } from "../Button"
 import { FC } from "react"
 
 interface text {

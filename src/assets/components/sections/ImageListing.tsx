@@ -1,6 +1,6 @@
 import { FC } from "react"
-import { imageListInterface } from "../Interfaces"
-import { Parallax } from "./Parallax"
+import { imageListInterface } from "../../Interfaces"
+import { Parallax } from "../Parallax"
 
 export const ImageListing : FC <imageListInterface> =  ({data, heading}) => {
     return(

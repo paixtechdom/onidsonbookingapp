@@ -1,6 +1,6 @@
-import { BeforeFooter } from "../../assets/components/BeforeFooter";
-import { ImageListing } from "../../assets/components/ImageListing";
-import { ImageText } from "../../assets/components/ImageText";
+import { BeforeFooter } from "../../assets/components/sections/BeforeFooter";
+import { ImageListing } from "../../assets/components/sections/ImageListing";
+import { ImageText } from "../../assets/components/sections/ImageText";
 import { visitablePlaces } from "../home/page";
 import img from "../../assets/images/visa.jpg"
 import manager from "../../assets/images/manager.jpg"
