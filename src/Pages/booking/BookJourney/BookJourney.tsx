@@ -13,16 +13,18 @@ import { Button } from "../../../assets/components/utils/Button";
 
 const BookJourney = () => {
   const dispatch = useDispatch()
-  useEffect(() => {
-    dispatch(toggleShowAlert(true))
-    dispatch(setAlertMessage("Online flight booking coming soon"))
-    dispatch(setAlertType("info"))
-  }, [])
+
+  // useEffect(() => {
+  //   dispatch(toggleShowAlert(true))
+  //   dispatch(setAlertMessage("Online flight booking coming soon"))
+  //   dispatch(setAlertType("info"))
+  // }, [])
+
   const [ formInputs, setFormInputs ] = useState({
     from: "",
     to: "",
     noOfPersons: 0,
-    date: ""
+    date: new Date()
   })
 
   const [ showPopUp, setShowPopUp ] = useState('')
@@ -42,16 +44,25 @@ const BookJourney = () => {
 
     let newTo = Locations.filter( a => a.location !== formInputs.from).map(a => a.location)
     setToLocations(newTo)
+
   }, [formInputs.to, formInputs.from])
+
+  useEffect(() => {
+
+    console.log(formInputs.date)
+
+  }, [formInputs.date])
+
 
   const clearFormInputs = () => {
     setFormInputs({
       from: "",
       to: "",
       noOfPersons: 0,
-      date: ""
+      date: new Date()
     })
   }
+
 
  const LocationFilteredJourneys = AllJourneys.filter(j => {
     if(formInputs.from === "" && formInputs.to === "" ){
@@ -68,9 +79,30 @@ const BookJourney = () => {
     }    
   })
 
-  const Journeys = LocationFilteredJourneys.filter(j => 
+
+  const NoOfPersonsFilteredJourney = LocationFilteredJourneys.filter(j => 
     formInputs.noOfPersons <= j.availableSeats && j
   )
+
+  // NoOfPersonsFilteredJourney.forEach((j) => {
+
+  //   console.log(formInputs.date.getTime() <= new Date(j.date).getTime() || formInputs.date.getDay() == new Date(j.date).getDay(), j.date)
+
+  //   console.log(formInputs.date.getTime(), "form inputs time")
+
+  //   console.log(new Date(j.date).getTime(), "Jdate.getTime(")
+    
+  // })
+
+
+
+  // if the date of the journey == or greater than the inputed day  
+  const dateCondition = (journey:any) => {
+    return formInputs.date.getTime() <= new Date(journey.date).getTime() || formInputs.date.getDate() == new Date(journey.date).getDate()
+  }
+
+
+  const Journeys = NoOfPersonsFilteredJourney.filter(j => dateCondition(j) && j)
 
 
   // fetch all journeys that have not expired and pass the journey as an argurment
@@ -86,10 +118,6 @@ const BookJourney = () => {
 
 
         <form className={`${formField}`}>
-          <p className="text-xl  font-bold text-red-600">
-            FILTER BY DATE
-          </p>
-
           <h2 className={`${h2} col-span-2 w-full`}>Enter your travel details</h2>
 
           <InputField 
@@ -131,8 +159,8 @@ const BookJourney = () => {
           </InputField>
           
           <DatePicker 
+            setFormInputs={setFormInputs}
             formInputs={formInputs}
-            selectedDate={formInputs.date}
           />
 
           <InputField 

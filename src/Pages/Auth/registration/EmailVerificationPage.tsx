@@ -2,8 +2,11 @@ import { useEffect, useRef, useState } from 'react'
 import { main, mainChild } from '../../../assets/StyleClasses'
 import { Button } from '../../../assets/components/utils/Button'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { useMyAlert } from '../../../assets/components/Alert'
+import axios from 'axios'
 
 const EmailVerificationPage = () => {
+    const triggerAlert = useMyAlert()
     const [ code, setCode ] = useState(['', '', '', '', '', ''])
     const [ pin, setPin ] = useState('')
     const navigate = useNavigate()
@@ -28,7 +31,7 @@ const EmailVerificationPage = () => {
         newCode[i] = value
         setCode(newCode)
         setPin(newCode.toString().replace(',', '').replace(',', '').replace(',', '').replace(',', '').replace(',', ''))
-        console.log(pin)
+        
         
         if(value !== '' && i < 5){
             inputRefs[i + 1].current.focus()
@@ -41,13 +44,34 @@ const EmailVerificationPage = () => {
         } 
     }
 
+    const handleSubmit = async (e:any) => {
+
+        e.preventDefault()
+
+        await axios.post('http://localhost:80/onidsonBackend/VerifyEmail.php', {
+            pin: pin,
+            email: email
+        })
+        .then((response) => {
+        if(response.data.status == "success"){
+            triggerAlert("success", response.data.message)
+            // navigate(`/login?${journeyId}`)2
+        }
+        else{
+            triggerAlert("error", response.data.message)
+        }
+        })
+        .catch(error => {{
+            console.log(error)
+        }})
+    }
 
   return (
     <main className={`${main}`}>
         <div className={`${mainChild}`}>
             <div className="flex flex-col center lg:flex-row gap-[150px] w-full">
 
-            <form className="w-full flex items-start flex-col gap-7">
+            <form className="w-full flex items-start flex-col gap-7" onSubmit={handleSubmit}>
                 <h1 className="text-xl font-bold">
                     Input the verification code sent to {email}
                 </h1>
@@ -71,12 +95,11 @@ const EmailVerificationPage = () => {
                     }
                 </div>
                 
-                <Link to={`/login?${journeyId}`}>
-                    <Button 
-                        text={'Submit'}
-                        className='bg-secondary text-white'
-                    />
-                </Link>
+                <Button 
+                    text={'Submit'}
+                    className='bg-secondary text-white'
+                />
+                
                 
                 {/* <div className="w-full gap-3 mt-3 justify-end text-sm">
                     By signing up, you agree to the company's legal <AuthLink text={'terms and conditions'} to={'/Signup'}/> governing the use of this platform for merchants.

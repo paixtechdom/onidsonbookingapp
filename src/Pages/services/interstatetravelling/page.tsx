@@ -10,12 +10,12 @@ import planaTakeOff from "../../../assets/images/planaTakeOff.jpg"
 import { BeforeFooter } from "../../../assets/components/sections/BeforeFooter"
 import { useDispatch } from "react-redux"
 import { Helmet } from "react-helmet-async"
-import { setAlertMessage, setAlertType, toggleShowAlert } from "../../../assets/store/AlertSlice"
 import { ImageListing } from "../../../assets/components/sections/ImageListing"
 import bus1 from "../../../assets/images/buses/buses 1.jpg"
 import bus2 from "../../../assets/images/buses/buses 2.jpg"
 import bus3 from "../../../assets/images/buses/buses 3.jpg"
 import siena1 from "../../../assets/images/buses/siena 2.png"
+import { useMyAlert } from "../../../assets/components/Alert"
 
 
 const buses = [
@@ -42,15 +42,15 @@ const buses = [
 const InterStateTrevellingPage = () => {
 
     const dispatch = useDispatch()
+    const triggerAlert = useMyAlert()
 
     useEffect(() => {
         dispatch(setCurrentNav(2))
         dispatch(setCurrentDropDownIndex(0))
         dispatch(setCurrentDropDown(""))
 
-        dispatch(toggleShowAlert(true))
-        dispatch(setAlertMessage("Online booking coming soon"))
-        dispatch(setAlertType("info"))
+        triggerAlert("info", "Online booking coming soon")
+
     }, [])
     
 

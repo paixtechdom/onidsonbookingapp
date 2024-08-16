@@ -10,12 +10,12 @@ import { setCurrentDropDown, setCurrentDropDownIndex, setCurrentNav } from "../.
 import logisticsImg from "../../../assets/images/logisticsImg.jpg"
 import { BeforeFooter } from "../../../assets/components/sections/BeforeFooter"
 import { Helmet } from "react-helmet-async"
-import { setAlertMessage, setAlertType, toggleShowAlert } from "../../../assets/store/AlertSlice"
 import { ImageListing } from "../../../assets/components/sections/ImageListing"
 import dubai from "../../../assets/images/dubai.jpg"
 import paris from "../../../assets/images/paris.jpg"
 import canada from "../../../assets/images/canada.jpg"
 import newYork from "../../../assets/images/new york.jpg"
+import { useMyAlert } from "../../../assets/components/Alert"
 
 export const travelPlaces = [
     {
@@ -38,15 +38,14 @@ export const travelPlaces = [
 
 const FlightService = () => {
     const dispatch = useDispatch()
+    const triggerAlert = useMyAlert()
 
     useEffect(() => {
         dispatch(setCurrentNav(2))
         dispatch(setCurrentDropDownIndex(1))
         dispatch(setCurrentDropDown(""))
 
-        dispatch(toggleShowAlert(true))
-        dispatch(setAlertMessage("Online booking coming soon"))
-        dispatch(setAlertType("info"))
+        triggerAlert("info", "Online booking coming soon")
     }, [])
 
     return(

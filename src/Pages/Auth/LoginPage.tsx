@@ -1,12 +1,14 @@
-import { ChangeEvent, useEffect, useState } from 'react'
+import { ChangeEvent, useState } from 'react'
 import { main, mainChild } from '../../assets/StyleClasses'
 import { InputField } from '../../assets/components/utils/FormInputs'
 import { BsEyeFill, BsEyeSlashFill, BsFillEnvelopeFill } from 'react-icons/bs'
 import { Button } from '../../assets/components/utils/Button'
-import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
+import axios from 'axios'
+import { useMyAlert } from '../../assets/components/Alert'
 
 const LoginPage = () => {
-  const navigate = useNavigate()
+  const triggerAlert = useMyAlert()
   const location = useLocation()
   const redirectTo = location.search.split('?')[1]
 
@@ -17,24 +19,40 @@ const LoginPage = () => {
 
   const [ showPassword, setShowPassword ] = useState(false)
 
-
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setFormInputs({
         ...formInputs,
         [e.target.name]: (e.target.value).replace(/\n/g, '<br>')
     })
   }
-  useEffect(() => {
-    
-  },[])
-  const Login = () => {
-    if(redirectTo == undefined){
-      navigate('/dashboard')
-    }else if (redirectTo.includes('/')){
-      navigate(`/${redirectTo}`)
-    }else{
-      navigate(`/journey/${redirectTo}`)
-    }
+
+  const Login = async (e:any) => {
+    e.preventDefault()
+
+    await axios.post('http://localhost:80/onidsonBackend/Login.php', formInputs)
+      .then((response) => {
+
+        console.log(response.data.status)
+
+        if(response.data.status == "success"){
+          triggerAlert("success", response.data.message)
+        }
+        else{
+          triggerAlert("error", response.data.message)
+        }
+      })
+      .catch(error => {{
+          console.log(error)
+        }})
+
+
+    // if(redirectTo == undefined){
+    //   navigate('/dashboard')
+    // }else if (redirectTo.includes('/')){
+    //   navigate(`/${redirectTo}`)
+    // }else{
+    //   navigate(`/journey/${redirectTo}`)
+    // }
   }
 
   return (
@@ -46,7 +64,7 @@ const LoginPage = () => {
         <div className="flex flex-col lg:flex-row gap-[150px] w-full">
 
 
-          <form className={`center flex-col gap-8 mb-[10vh] w-full`}>
+          <form method="POST" className={`center flex-col gap-8 mb-[10vh] w-full`}>
             <InputField 
               name='email'
               type='email'
@@ -63,14 +81,13 @@ const LoginPage = () => {
               label = "Password"
               handleChange={handleChange}
               value = {formInputs.password}
-              icon = {showPassword ? <BsEyeSlashFill /> : <BsEyeFill />}
+              icon = {showPassword ? <BsEyeSlashFill onClick={() => setShowPassword(!showPassword)}/> : <BsEyeFill onClick={() => setShowPassword(!showPassword)}/>}
               isRequired = {true}  
-              func={() => setShowPassword(!showPassword)}
             />
 
             <div className="-my-3 text-right text-red-700 underline font-bold w-full">Forgot Password?</div>
 
-            <div className="w-full" onClick={() => Login()}>
+            <div className="w-full" onClick={Login}>
               <Button 
                 text='LOGIN'
                 className='bg-secondary text-white w-full font-bold py-3'

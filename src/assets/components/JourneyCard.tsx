@@ -53,6 +53,7 @@ const JourneyCard:FC<journeyInterface> = ({journeyProps, button_text, journeyId,
       }
 
   }, [])
+
   return (
     <Link to={`/journey/${journey?.id || journeyId}`} className="flex w-full bg-white bg-opacity-5 backdrop-blur-3xl border border-primary border-opacity-25 shadow-xl rounded-tl-3xl rounded-br-3xl flex-col p-8 gap-3">
       
@@ -89,7 +90,7 @@ const JourneyCard:FC<journeyInterface> = ({journeyProps, button_text, journeyId,
       {/* give room for different bus terminals in the same state or ask if there will be different */}
       <div className="flex justify-between items-center">
         <p className={`${fadedBold}`}>{journey?.time}</p>
-        <p className={`${fadedBold}`}>{format(journey?.date || new Date(), 'dd/MM/yy')}</p>
+        <p className={`${fadedBold}`}>{`${journey?.date}` || `${new Date()}`}</p>
       </div>
 
 

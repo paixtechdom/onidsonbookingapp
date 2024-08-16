@@ -1,8 +1,11 @@
 import { useDispatch, useSelector } from "react-redux"
 import { RootState } from "../store/AppStore"
 import { BiX } from "react-icons/bi"
-import { toggleShowAlert } from "../store/AlertSlice"
+import { setAlertMessage, setAlertType, toggleShowAlert } from "../store/AlertSlice"
 import { useEffect } from "react"
+
+
+
 
 const Alert = () => {
     const dispatch = useDispatch()
@@ -27,7 +30,7 @@ const Alert = () => {
             border-l-[16px] lg:border-l-[25px] ${
             alertType == "success" ? "border-green-700" :
             alertType == "info" ? "border-blue-700" :
-            alertType == "error" ? "border-blue-900" :
+            alertType == "error" ? "border-red-700" :
              "border-red-700"
         }
         `}>
@@ -46,3 +49,17 @@ const Alert = () => {
 }
 
 export default Alert
+
+
+export const useMyAlert = () => {
+    const dispatch = useDispatch();
+  
+    // Create a function that handles the alert logic
+    const triggerAlert = (alertType: string, alertMessage: string) => {
+      dispatch(setAlertType(alertType));
+      dispatch(setAlertMessage(alertMessage));
+      dispatch(toggleShowAlert(true));
+    };
+  
+    return triggerAlert; // Return the function so it can be used in components
+  };

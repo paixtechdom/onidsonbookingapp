@@ -82,14 +82,13 @@ const JourneyPage = () => {
     useEffect(() => {
         let journeys = Journeys.filter(j => j.id == id.id && j)
         setJourney(journeys[0])
-        // console.log(journeys[0])
 
+        // check if this journey id is in the userslice before fetching the details of the journey and the user booing info
         if(bookedJourneys.includes(journeys[0].id)){
 
             // fetch booking details
             let matched_booking_info = BookingInfo.filter(info => info.journeyId == journeys[0].id)
-            setBookingDetails(matched_booking_info[0])
-            
+            setBookingDetails(matched_booking_info[0])            
         }
 
 
@@ -236,7 +235,10 @@ const JourneyPage = () => {
                                 className="bg-white border border-secondary mt-8 text-secondary text-lg lg:w-fit w-full"
                             /> */}
                              { 
+                                //  sessionToken == undefine === no user is logged in
+
                                 sessionToken == undefined ? 
+
                                 <Link to={`/Login?${journey.id}`} className="w-full lg:w-fit" 
                                 onClick={() => {
                                     dispatch(toggleShowAlert(true))
@@ -244,12 +246,12 @@ const JourneyPage = () => {
                                     dispatch(setAlertType("info"))
                                 }}>
                                     <Button 
-                                        text="Buy ticket"
+                                        text="Buy ticket login"
                                         className="bg-secondary mt-8 text-white text-lg lg:w-fit"
                                     />
                                 </Link> : 
                                 
-                                bookingDetails.id !== "" &&
+                                bookingDetails.id == "" &&
 
                                 <Link to={`/payment?${journey.id}`} className="w-full lg:w-fit">
                                     <Button 

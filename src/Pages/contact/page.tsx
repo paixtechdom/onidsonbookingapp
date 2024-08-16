@@ -6,15 +6,14 @@ import { BreadCrumbs } from "../../assets/components/BreadCrumbs"
 import { Helmet } from "react-helmet-async"
 import { BiLoaderAlt } from "react-icons/bi"
 import axios from "axios"
-import { useDispatch } from "react-redux"
-import { setAlertMessage, setAlertType, toggleShowAlert } from "../../assets/store/AlertSlice"
 import { ContactInfo } from "../../assets/components/sections/Footer"
+import { useMyAlert } from "../../assets/components/Alert"
 
 
 const ContactPage = () => {
-    const dispatch = useDispatch()
     const [ loading, setLoading ] = useState(false)
     const [ emptyFieldsError, setEmptyFieldsError ] = useState(false)
+    const triggerAlert = useMyAlert()
 
     const [ formInputs, setFormInputs ] = useState({
         fullName: "",
@@ -66,25 +65,18 @@ const ContactPage = () => {
           })
             .then((response) => {
                 if(response.data.success == true){
-                    dispatch(setAlertType("success"))
-                    dispatch(toggleShowAlert(true))
-                    dispatch(setAlertMessage("Message sent successfully!"))
+                    triggerAlert("success", "Message sent successfully!")
                     clearForm()
                 
                 }else{
-                    isError()
+                    triggerAlert("error", "Failed to send message!")
                 }
             })
             .catch(() => {
-                isError()
+                triggerAlert("error", "Failed to send message!")
             });
             setLoading(false)
         
-    }
-    const isError = () => {
-        dispatch(toggleShowAlert(true))
-        dispatch(setAlertMessage("Failed to send message!"))
-        dispatch(setAlertType("error"))
     }
 
     const clearForm = () => {

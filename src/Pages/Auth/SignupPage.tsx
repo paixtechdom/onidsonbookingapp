@@ -1,33 +1,108 @@
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent, useEffect, useState } from 'react'
 import { main, mainChild } from '../../assets/StyleClasses'
-import { InputField, RadioSelect } from '../../assets/components/utils/FormInputs'
+import { CountriesOption, InputField, RadioSelect } from '../../assets/components/utils/FormInputs'
 import { Button } from '../../assets/components/utils/Button'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { BsEyeFill, BsEyeSlashFill, BsFillEnvelopeFill, BsPersonFill, BsTelephoneFill } from 'react-icons/bs'
+import axios from 'axios'
+import { useMyAlert } from '../../assets/components/Alert'
+import { BiChevronDown } from 'react-icons/bi'
 
 const SignupPage = () => {
   const location = useLocation()
+  const triggerAlert = useMyAlert()
   const redirectTo = location.search.split('?')[1]
-    const [ formInputs, setFormInputs ] = useState({
-      firstName: "",
-      email: "",
-      lastName: "",
-      gender: "",
-      phoneNumber: "",
-      password: "",
-      confirmpassword: ""
+  const navigate = useNavigate()
+
+  const [ formInputs, setFormInputs ] = useState({
+    firstName: "",
+    email: "",
+    lastName: "",
+    gender: "",
+    country: "",
+    phoneNumber: "",
+    password: ""
+  })
+  
+  const [ showPassword, setShowPassword ] = useState(false)
+  const [ confirmPassword, setConfirmPassword ] = useState('')
+  const [ passwordPercentage, setPasswordPercentage ] = useState(1)
+  const [ passwordError, setPasswordError ] = useState('')
+
+  const [ showCountries, setShowCountries ] = useState(false)
+  const [ searchInput, setSearchInput ] = useState('')
+  // const [ showPopUp, setShowPopUp ] = useState("")
+
+  
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setFormInputs({
+        ...formInputs,
+        [e.target.name]: (e.target.value).replace(/\n/g, '<br>')
     })
-    
-      const [ showPassword, setShowPassword ] = useState(false)
+  }
 
-    
-      const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-        setFormInputs({
-            ...formInputs,
-            [e.target.name]: (e.target.value).replace(/\n/g, '<br>')
-        })
+
+  useEffect(() => {
+    passwordStrength(formInputs.password)
+    if(formInputs.password.length > 0){
+      if(formInputs.password.length < 6){
+          setPasswordError('Password must be at least 6 characters')
       }
+      else{
+          setPasswordError('')
+      }
+  }
+  }, [formInputs.password])
 
+
+  const passwordStrength = (password:string) => {
+    let length = 0
+    let uppercase = 0
+    let lowercase = 0
+    let number = 0
+    let sign = 0
+    if(password == "Chuck Norris"){
+      setPasswordPercentage(100)
+      setPasswordError('Password is too strong')
+    }else{
+      if(password.length > 5){
+          length = 20
+          if(password.match(/^(?=.*[a-z]).+$/)){
+              lowercase = 20
+          }
+          if(password.match(/^(?=.*[A-Z]).+$/)){
+              uppercase = 20
+          }
+          if(password.match(/^(?=.*\d).+$/)){
+              number = 20
+          }
+          if(password.match(/^(?=.*[!`~@#$%^&*()-+=_{}[\]|\:;"'<,./>?]).+$/)){
+              sign = 20
+          }
+      }
+      setPasswordPercentage(length + uppercase + lowercase + number + sign)
+    }
+  }
+
+  const SubmitDetails = async (e:any) => {
+    e.preventDefault()
+
+    await axios.post('http://localhost:80/onidsonBackend/SignUp.php', formInputs)
+    .then((response) => {
+      if(response.data.status == "success"){
+        triggerAlert("success", response.data.message)
+        navigate(`/email_verification?${formInputs.email}?${redirectTo}`)
+      }
+      else{
+        triggerAlert("error", response.data.message)
+      }
+    })
+    .catch(error => {{
+        console.log(error)
+      }})
+  }
+
+  
   return (
     <main className={`${main} min-h-screen`}>
       <div className={`${mainChild} h-full center`}>
@@ -37,7 +112,7 @@ const SignupPage = () => {
         <div className="flex flex-col lg:flex-row gap-[150px] w-full relative">
 
 
-          <form className={`center flex-col gap-8 mb-[10vh] w-full`}>
+          <form className={`center flex-col gap-8 mb-[10vh] w-full`} onSubmit={SubmitDetails}>
             <InputField 
               name='firstName'
               type='text'
@@ -87,33 +162,76 @@ const SignupPage = () => {
               isRequired = {true}  
             />
 
+          <InputField 
+                label="Select Country"
+                name="country"
+                handleChange={handleChange}
+                type="text"
+                value={formInputs.country}
+                isReadonly={true}
+                func={() => {
+                    setShowCountries(true)
+                }}
+                icon={
+                    <BiChevronDown className="text-4xl mr-4"/>
+                }
+            >
+                <CountriesOption 
+                    setFormInputs={setFormInputs}
+                    setShowCountries={setShowCountries} 
+                    showCountries={showCountries}                         
+                    searchInput={searchInput}
+                    setSearchInput={setSearchInput}
+                    formInputs={formInputs}
+                />
+            </InputField>
+
             <InputField 
               name='password'
               type={showPassword ? "text" : "password"}
               label = "Password"
               handleChange={handleChange}
               value = {formInputs.password}
-              icon = {showPassword ? <BsEyeSlashFill /> : <BsEyeFill />}
-              isRequired = {true}  
-              func={() => setShowPassword(!showPassword)}
+              icon = {showPassword ? <BsEyeSlashFill onClick={() => setShowPassword(!showPassword)}/> : <BsEyeFill onClick={() => setShowPassword(!showPassword)}/>}
+              isRequired = {true}
             />
-
+            {
+              formInputs.password.length > 5 ?
+              <div className='flex w-full items-center -my-3'>
+              <p className={`h-1 rounded-xl mx-2 transition-all duration-500 ${
+                  passwordPercentage == 0 ? 'w-0' :
+                  passwordPercentage == 40 ? 'bg-red-600 w-4/12' :
+                  passwordPercentage == 60 ? 'bg-yellow-400 w-6/12' :
+                  passwordPercentage == 80 ? 'bg-blue-800 w-10/12' :
+                  passwordPercentage == 100 ? 'bg-green-600 w-full' 
+                  : ''}`}></p>
+              <p className="text-sm font-bold w-fit">{passwordPercentage}%</p> 
+              </div>
+              : ''
+            }
+            {
+                formInputs.password !== "" && passwordError != '' ?
+                <p className="text-red-800 w-full -my-2 font-bold">{passwordError}</p> : ''
+            }
             <InputField 
               name='confirmpassword'
               type={showPassword ? "text" : "password"}
               label = "Confirm Password"
-              handleChange={handleChange}
-              value = {formInputs.confirmpassword}
-              icon = {showPassword ? <BsEyeSlashFill /> : <BsEyeFill />}
-              isRequired = {true}  
-              func={() => setShowPassword(!showPassword)}
+              handleChange={(e:any) => setConfirmPassword(e.target.value)}
+              value = {confirmPassword}
+              icon = {showPassword ? <BsEyeSlashFill onClick={() => setShowPassword(!showPassword)}/> : <BsEyeFill onClick={() => setShowPassword(!showPassword)}/>}
+              isRequired = {true}
             />
-            <Link to={`/email_verification?${formInputs.email}?${redirectTo}`} className='w-full mt-5'>
+            {
+              confirmPassword !== "" && confirmPassword !== formInputs.password ? 
+              <p className="text-red-800 w-full -my-2 font-bold">Passwords must be the same</p> :""
+            }
+            {/* <div onClick={SubmitDetails} className='w-full'> */}
               <Button 
                 text='Create Account'
                 className='bg-secondary text-white w-full font-bold py-3'
               />
-            </Link>
+            {/* </div> */}
 
             <Link to={`/login`} className="mt-4 font-bold">
               Already have an account? <span className='text-blue-600 underline'>Login</span>
