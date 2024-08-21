@@ -5,30 +5,30 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 // fetch all bookings wwhich contains the id of the user and add the id from the journey to the booked journey
     
 
-interface userDetailsInterface {
+type UserDetailsInterface = {
     id: string,
-    firstName: string,
-    lastName: string,
+    first_name: string,
+    last_name: string,
     gender: string,
     email: string,
-    phoneNumber: string
+    phone_number: string
 }
 
-interface userInterface {
-    userDetails: userDetailsInterface
+type UserInterface = {
+    userDetails: UserDetailsInterface
     bookedJourneys: string[],
     sessionToken: string | undefined
 }
 
 
-const initialState: userInterface  = {
+const initialState: UserInterface  = {
     userDetails: { 
         id: "",
-        firstName: "J",
-        lastName: "",
+        first_name: "J",
+        last_name: "",
         gender: "",
         email: "",
-        phoneNumber: ""
+        phone_number: ""
     },
     bookedJourneys: ["lagos-abuja", "abuja-port"],
     sessionToken: undefined
@@ -40,7 +40,7 @@ const userSlice = createSlice({
     name: "user",
     initialState,
     reducers: {
-        setUserDetails: (state, action: PayloadAction<userDetailsInterface>) => {
+        setUserDetails: (state, action: PayloadAction<UserDetailsInterface>) => {
             state.userDetails = action.payload
         },
         setBookedJourneys: (state, action: PayloadAction<any[]>) =>{

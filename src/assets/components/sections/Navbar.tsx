@@ -4,7 +4,7 @@ import { BiMenu, BiX } from "react-icons/bi"
 import { RiArrowDropDownFill, RiArrowDropUpFill } from "react-icons/ri"
 import { useDispatch, useSelector } from "react-redux"
 import { RootState } from "../../store/AppStore"
-import { setCurrentDropDown, setCurrentDropDownIndex, setCurrentNav, toggleShowNav } from "../../store/navigation/navigationSlice"
+import { setCurrentDropDown, setCurrentDropDownIndex, setCurrentNav, toggleShowNav } from "../../store/Slices/navigationSlice"
 import { DocscrollTop } from "../../../App"
 import { useEffect } from "react"
 import logo from "../../images/Onidson sm.png"
@@ -21,7 +21,7 @@ export const Navbar = () => {
     const scrolledDown = navigation.scrolledDown
     const currentDropDown = navigation.currentDropDown
     const sessionToken = user.sessionToken
-    const userName = user.userDetails.firstName
+    const userName = user.userDetails.first_name
 
 
     const navigate = useNavigate()

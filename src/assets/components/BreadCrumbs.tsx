@@ -3,7 +3,7 @@ import { FC } from "react"
 import { BreadCrumbsInterface } from "../Interfaces"
 import { BiChevronRight } from "react-icons/bi"
 import { useDispatch } from "react-redux"
-import { setCurrentDropDown } from "../store/navigation/navigationSlice"
+import { setCurrentDropDown } from "../store/Slices/navigationSlice"
 
 export const BreadCrumbs:FC<BreadCrumbsInterface> = ({links}) => {
     const dispatch = useDispatch()

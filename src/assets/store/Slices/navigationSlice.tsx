@@ -1,15 +1,15 @@
-// store
 
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 
-interface NavInterface {
+type NavInterface = {
     showNavbar: boolean,
     currentNav: number,
     currentDropDownIndex: number,
     scrolledDown: boolean,
     currentDropDown: string;
 }
+
 
 const initialState: NavInterface  = {
     showNavbar: false,

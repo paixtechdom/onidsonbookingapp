@@ -24,7 +24,7 @@ import { RootState } from "../../../assets/store/AppStore"
     
 */
 
-const MyJourneys = () => {
+const MyFlightJourneys = () => {
     const userId = useParams()
     // console.log(userId.id)
     const navigate = useNavigate()
@@ -66,7 +66,7 @@ const MyJourneys = () => {
                   journey_id={booking.journey_id} 
                   button_text={"View Journey"}
                   // no booked seats will be passed down with the fetching of all bookings with the used id
-                  noBookedSeats={booking.noBookedSeats}
+                  no_booked_seats={booking.no_booked_seats}
                 />
               ))
             }
@@ -80,4 +80,4 @@ const MyJourneys = () => {
   )
 }
 
-export default MyJourneys
+export default MyFlightJourneys

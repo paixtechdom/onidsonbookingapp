@@ -1,6 +1,8 @@
 import { ChangeEvent, useEffect, useState } from 'react'
 import { main, mainChild } from '../../assets/StyleClasses'
-import { CountriesOption, InputField, RadioSelect } from '../../assets/components/utils/FormInputs'
+import { InputField } from '../../assets/components/FormInputs/InputField'
+import { RadioSelect } from '../../assets/components/FormInputs/RadioSelect'
+import { CountriesOption } from '../../assets/components/FormInputs/CountriesSelect'
 import { Button } from '../../assets/components/utils/Button'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { BsEyeFill, BsEyeSlashFill, BsFillEnvelopeFill, BsPersonFill, BsTelephoneFill } from 'react-icons/bs'
@@ -15,12 +17,12 @@ const SignupPage = () => {
   const navigate = useNavigate()
 
   const [ formInputs, setFormInputs ] = useState({
-    firstName: "",
+    first_name: "",
     email: "",
-    lastName: "",
+    last_name: "",
     gender: "",
     country: "",
-    phoneNumber: "",
+    phone_number: "",
     password: ""
   })
   
@@ -114,20 +116,20 @@ const SignupPage = () => {
 
           <form className={`center flex-col gap-8 mb-[10vh] w-full`} onSubmit={SubmitDetails}>
             <InputField 
-              name='firstName'
+              name='first_name'
               type='text'
               label = "First Name"
               handleChange={handleChange}
-              value = {formInputs.firstName}
+              value = {formInputs.first_name}
               icon = {<BsPersonFill />}
               isRequired = {true}  
             />
             <InputField 
-              name='lastName'
+              name='last_name'
               type='text'
               label = "Last Name"
               handleChange={handleChange}
-              value = {formInputs.lastName}
+              value = {formInputs.last_name}
               icon = {<BsPersonFill />}
               isRequired = {true}  
             />
@@ -153,11 +155,11 @@ const SignupPage = () => {
             />
 
             <InputField 
-              name='phoneNumber'
+              name='phone_number'
               type='number'
               label = "Phone Number"
               handleChange={handleChange}
-              value = {formInputs.phoneNumber}
+              value = {formInputs.phone_number}
               icon = {<BsTelephoneFill />}
               isRequired = {true}  
             />

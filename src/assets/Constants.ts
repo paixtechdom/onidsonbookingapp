@@ -495,9 +495,13 @@ export const NavInfo = [
         title: 'Booking',
         link: '',
         sublinks: [
+            // {
+            //     title: 'Book Journey',
+            //     link: 'book-journey',
+            // },
             {
-                title: 'Book Journey',
-                link: 'book-journey',
+                title: 'Book Flight',
+                link: 'book-flight',
             },
             {
                 title: 'My Journeys',
@@ -528,6 +532,8 @@ export const NavInfo = [
         link: 'contact',
     },
 ]
+
+
 
 export const AccountNavInfo = [
     {
@@ -571,9 +577,9 @@ export const Journeys = [
         price: 30000,
         date: "8-15-2024",
         time: "07:30 AM",
-        availableSeats: 7,
-        bookedSeats: [1, 3, 5, 7, 8, 10],
-        totalPassengers: 12
+        available_seats: 7,
+        booked_seats: [1, 3, 5, 7, 8, 10],
+        total_passengers: 12
     },
     {
         id: "abuja-port",
@@ -582,9 +588,9 @@ export const Journeys = [
         price: 45000,
         date: "8-20-2024",
         time: "07:30 AM",
-        availableSeats: 6,
-        bookedSeats: [2, 3, 5, 6, 8, 9],
-        totalPassengers: 12
+        available_seats: 6,
+        booked_seats: [2, 3, 5, 6, 8, 9],
+        total_passengers: 12
     },
     {
         id: "abuja-lagos",
@@ -593,9 +599,9 @@ export const Journeys = [
         price: 30000,
         date: "8-21-2024",
         time: "07:30 AM",
-        availableSeats: 5,
-        bookedSeats: [2, 4, 5, 6, 7, 8, 9],
-        totalPassengers: 12
+        available_seats: 5,
+        booked_seats: [2, 4, 5, 6, 7, 8, 9],
+        total_passengers: 12
     },
     {
         id: "port-lagos",
@@ -604,9 +610,9 @@ export const Journeys = [
         price: 40000,
         date: "8-22-2024",
         time: "07:30 AM",
-        availableSeats: 10,
-        bookedSeats: [2, 6],
-        totalPassengers: 12
+        available_seats: 10,
+        booked_seats: [2, 6],
+        total_passengers: 12
     },
     {
         id: "port-abuja",
@@ -615,9 +621,9 @@ export const Journeys = [
         price: 45000,
         date: "8-23-2024",
         time: "07:30 AM",
-        availableSeats: 3,
-        bookedSeats: [1, 2, 3, 4, 5, 6, 9, 10, 12],
-        totalPassengers: 12
+        available_seats: 3,
+        booked_seats: [1, 2, 3, 4, 5, 6, 9, 10, 12],
+        total_passengers: 12
     },
     {
         id: "lagos-port",
@@ -626,38 +632,147 @@ export const Journeys = [
         price: 40000,
         date: "8-24-2024",
         time: "07:30 AM",
-        availableSeats: 8,
-        bookedSeats: [4, 6, 7, 8],
-        totalPassengers: 12
+        available_seats: 8,
+        booked_seats: [4, 6, 7, 8],
+        total_passengers: 12
     },
 
 ]
+
+
 
 
 export const BookingInfo = [
     {
         id: "id of this new booked journey",
         // journey id is to get the details of the journey
-        journeyId: Journeys[0].id,
-        userId: "to get the details of the user",
+        journey_id: Journeys[0].id,
+        user_id: "to get the details of the user",
         date: "1, July 2024",
-        noBookedSeats: 4,
+        no_booked_seats: 4,
         status: "booked",
         time: "should be based on time of payment confirmation"
     },
     {
         id: "id of this new",
         // journey id is to get the details of the journey
-        journeyId: Journeys[1].id,
-        userId: "to get the details of the user",
+        journey_id: Journeys[1].id,
+        user_id: "to get the details of the user",
         date: "1, July 2024",
-        noBookedSeats: 8,
+        no_booked_seats: 8,
         status: "booked",
         time: "should be based on time of payment confirmation"
     },
 ]
 
-export const MaxBookingNo = 20
+
+
+export const Flights = [
+    {
+        id: "lagos-abuja",
+        from: Locations[0].location,
+        to: Locations[1].location,
+        price: 3000000,
+        takeoff_date: "8-15-2024",
+        return_date: "10-20-2024",
+        time: "07:30 AM",
+        duration: "69h 20m",
+        stops: 0,
+        available_seats: 7,
+        booked_seats: [1, 3, 5, 7, 8, 10],
+        total_passengers: 12
+    },
+    {
+        id: "abuja-port",
+        from: Locations[1].location,
+        to: Locations[2].location,
+        price: 4500000,
+        takeoff_date: "8-20-2024",
+        return_date: "10-20-2024",
+        time: "07:30 AM",
+        duration: "69h 20m",
+        stops: 1,
+        available_seats: 6,
+        booked_seats: [2, 3, 5, 6, 8, 9],
+        total_passengers: 12
+    },
+    {
+        id: "abuja-lagos",
+        from: Locations[1].location,
+        to: Locations[0].location,
+        price: 3000000,
+        takeoff_date: "8-21-2024",
+        return_date: "10-20-2024",
+        time: "07:30 AM",
+        duration: "69h 20m",
+        stops: 2,
+        available_seats: 5,
+        booked_seats: [2, 4, 5, 6, 7, 8, 9],
+        total_passengers: 12
+    },
+    {
+        id: "port-lagos",
+        from: Locations[2].location,
+        to: Locations[0].location,
+        price: 4000000,
+        takeoff_date: "8-22-2024",
+        return_date: "10-20-2024",
+        time: "07:30 AM",
+        duration: "69h 20m",
+        stops: 2,
+        available_seats: 10,
+        booked_seats: [2, 6],
+        total_passengers: 12
+    },
+    {
+        id: "port-abuja",
+        from: Locations[2].location,
+        to: Locations[1].location,
+        price: 4500000,
+        takeoff_date: "8-23-2024",
+        return_date: "10-20-2024",
+        time: "07:30 AM",
+        duration: "69h 20m",
+        stops: 2,
+        available_seats: 3,
+        booked_seats: [1, 2, 3, 4, 5, 6, 9, 10, 12],
+        total_passengers: 12
+    },
+    {
+        id: "lagos-port",
+        from: Locations[0].location,
+        to: Locations[2].location,
+        price: 4000000,
+        takeoff_date: "8-24-2024",
+        return_date: "10-20-2024",
+        time: "07:30 AM",
+        duration: "69h 20m",
+        stops: 2,
+        available_seats: 8,
+        booked_seats: [4, 6, 7, 8],
+        total_passengers: 12
+    },
+
+]
+
+
+export const ClassOfService = [
+    'Economy', 
+    'Premium Economy', 
+    'Business', 
+    'First Class']
+
+/*
+    flight booking info
+        id
+        user id
+        flight id
+        payment id
+        seats booked
+    
+*/
+
+export const MaxBookingNo = 100
 
 
 

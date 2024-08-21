@@ -1,6 +1,6 @@
 import { ChangeEvent, useState } from 'react'
 import { main, mainChild } from '../../assets/StyleClasses'
-import { InputField } from '../../assets/components/utils/FormInputs'
+import { InputField } from '../../assets/components/FormInputs/InputField'
 import { BsEyeFill, BsEyeSlashFill, BsFillEnvelopeFill } from 'react-icons/bs'
 import { Button } from '../../assets/components/utils/Button'
 import { Link, useLocation } from 'react-router-dom'

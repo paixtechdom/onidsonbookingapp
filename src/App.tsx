@@ -2,7 +2,7 @@ import { useEffect } from "react"
 import { AppRouter } from "./AppRouter"
 import Alert from "./assets/components/Alert"
 import { useDispatch } from "react-redux";
-import { toggleScrolledDown } from "./assets/store/navigation/navigationSlice";
+import { toggleScrolledDown } from "./assets/store/Slices/navigationSlice";
 
 export const DocscrollTop = () => {
   scrollTo({

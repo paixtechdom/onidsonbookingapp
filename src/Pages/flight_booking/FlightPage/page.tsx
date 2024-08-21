@@ -44,7 +44,7 @@ interface bookingDetailsInterface {
     time: string
 }
 
-const JourneyPage = () => {
+const FlightPage = () => {
     const user = useSelector((state: RootState) => state.user)
     const dispatch = useDispatch()
 
@@ -338,4 +338,4 @@ const JourneyPage = () => {
   )
 }
 
-export default JourneyPage
+export default FlightPage

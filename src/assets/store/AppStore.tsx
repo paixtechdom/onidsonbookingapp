@@ -1,14 +1,16 @@
 import { configureStore } from "@reduxjs/toolkit"
-import navigationReducer from "./navigation/navigationSlice"
-import alertReducer from "./AlertSlice"
-import userReducer from "./user/userSlice"
+import navigationReducer from "./Slices/navigationSlice"
+import alertReducer from "./Slices/AlertSlice"
+import userReducer from "./Slices/userSlice"
+import flightSearchInputsReducer from "./Slices/flightSearchInputsSlice"
 
 
 export const store = configureStore({
     reducer: {
         navigation: navigationReducer,
         alert: alertReducer,
-        user: userReducer
+        user: userReducer,
+        flightSearchInputs: flightSearchInputsReducer,
     }
 })
 

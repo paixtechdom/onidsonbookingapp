@@ -69,9 +69,15 @@ const HomePage: React.FC = () => {
                 </title>
                 <meta name="description" content="Explore the world with Onidson Travels and Logistics Ltd - personalized tour packages, flight bookings, travel insurance, and professional training. Discover seamless journeys and exceptional travel experiences. Contact us today!" />
             </Helmet>
-        <main className="center bg-white flex-col">
+        <main className="center bg-white flex-col w-full">
 
             <Hero />
+
+            <h1 className="font-bol text-3xl text-primary">
+                A CTA TO BOOK FLIGHT
+            </h1>
+            
+
 
             <ImageListing data={buses} heading="Book your next journey now"/>
             

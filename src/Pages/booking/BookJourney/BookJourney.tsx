@@ -1,12 +1,13 @@
 import { ChangeEvent, useEffect, useState } from "react";
-import { InputField, Select } from "../../../assets/components/utils/FormInputs";
+import { InputField } from "../../../assets/components/FormInputs/InputField";
+import { Select } from "../../../assets/components/FormInputs/Select";
 import { formField, h2, main, mainChild } from "../../../assets/StyleClasses";
 import { BsChevronDown } from "react-icons/bs";
 import { Locations, MaxBookingNo, Journeys as AllJourneys } from "../../../assets/Constants";
 import { ArrayFromNumber } from "../../../assets/Functions";
 import DatePicker from "../../../assets/components/DatePicker";
 import JourneyCard from "../../../assets/components/JourneyCard";
-import { setAlertMessage, setAlertType, toggleShowAlert } from "../../../assets/store/AlertSlice";
+import { setAlertMessage, setAlertType, toggleShowAlert } from "../../../assets/store/Slices/AlertSlice";
 import { useDispatch } from "react-redux";
 import { Button } from "../../../assets/components/utils/Button";
 
@@ -81,7 +82,7 @@ const BookJourney = () => {
 
 
   const NoOfPersonsFilteredJourney = LocationFilteredJourneys.filter(j => 
-    formInputs.noOfPersons <= j.availableSeats && j
+    formInputs.noOfPersons <= j.available_seats && j
   )
 
   // NoOfPersonsFilteredJourney.forEach((j) => {
@@ -202,7 +203,7 @@ const BookJourney = () => {
               Journeys.map(journey =>(
                 <JourneyCard 
                   key={journey.id} 
-                  journeyProps={journey} 
+                  journey_props={journey} 
                   button_text={"Book Now"}
                 />
               ))

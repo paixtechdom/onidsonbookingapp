@@ -8,7 +8,7 @@ import { PiCheck } from "react-icons/pi"
 import { BeforeFooter } from "../../../assets/components/sections/BeforeFooter"
 import { Helmet } from "react-helmet-async"
 import { useDispatch } from "react-redux"
-import { setCurrentDropDown, setCurrentDropDownIndex, setCurrentNav } from "../../../assets/store/navigation/navigationSlice"
+import { setCurrentDropDown, setCurrentDropDownIndex, setCurrentNav } from "../../../assets/store/Slices/navigationSlice"
 import { servicesList } from "../../../assets/Constants"
 import { ListingCardParent } from "../../../assets/components/Card/ListingCardParent"
 

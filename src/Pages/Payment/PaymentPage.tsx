@@ -1,15 +1,15 @@
 import { useLocation, useNavigate } from "react-router-dom"
 import { useEffect, useState } from "react"
-import { main, mainChild } from "../../../assets/StyleClasses"
-import { Journeys } from "../../../assets/Constants"
-import { journey } from "../../../assets/components/JourneyCard"
-import { FormatPrice } from "../../../assets/Functions"
+import { main, mainChild } from "../../assets/StyleClasses"
+import { Journeys } from "../../assets/Constants"
+import { journey } from "../../assets/components/JourneyCard"
+import { FormatPrice } from "../../assets/Functions"
 
 
 const PaymentPage = () => {
   const location = useLocation()
   const navigate = useNavigate()
-  const journeyId = location.search.split('?')[1]
+  const journey_id = location.search.split('?')[1]
   const [ journey, setJourney ] = useState<journey>({
     id: "",
     from: "",
@@ -17,18 +17,18 @@ const PaymentPage = () => {
     price: 0,
     date: "",
     time: "",
-    availableSeats: 0,
-    bookedSeats: [],
-    totalPassengers: 0
+    available_seats: 0,
+    booked_seats: [],
+    total_passengers: 0
 })
 
 
   useEffect(() => {
-    if(journeyId == undefined){
+    if(journey_id == undefined){
       navigate(`/Booking/book-journey`)
     }
 
-    let journeys = Journeys.filter(j => j.id == journeyId && j)
+    let journeys = Journeys.filter(j => j.id == journey_id && j)
     setJourney(journeys[0])
     console.log(journeys[0])
 

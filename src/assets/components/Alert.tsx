@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux"
 import { RootState } from "../store/AppStore"
 import { BiX } from "react-icons/bi"
-import { setAlertMessage, setAlertType, toggleShowAlert } from "../store/AlertSlice"
+import { setAlertMessage, setAlertType, toggleShowAlert } from "../store/Slices/AlertSlice"
 import { useEffect } from "react"
 
 

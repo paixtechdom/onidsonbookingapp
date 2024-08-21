@@ -5,6 +5,7 @@ import { format } from "date-fns"
 import { fadedBold } from "../StyleClasses"
 import { FormatPrice } from "../Functions"
 import { Journeys } from "../Constants"
+import { BiBus } from "react-icons/bi"
 
 export interface journey{
   id: string,
@@ -13,22 +14,22 @@ export interface journey{
   price: number,
   date: string,
   time: string,
-  availableSeats: number,
-  bookedSeats: number[],
-  totalPassengers: number
+  available_seats: number,
+  booked_seats: number[],
+  total_passengers: number
 }
 
 export interface journeyInterface{
-    journeyProps?: journey,
+    journey_props?: journey,
     button_text: string,
-    journeyId?: string,
-    noBookedSeats?: number
+    journey_id?: string,
+    no_booked_seats?: number
 }
 
-// passing journeyId means the fetching of the journey detaills will be done here
+// passing journey_id means the fetching of the journey detaills will be done here
 // but if not the journey details will be passed down as props
 
-const JourneyCard:FC<journeyInterface> = ({journeyProps, button_text, journeyId, noBookedSeats}):JSX.Element => {
+const JourneyCard:FC<journeyInterface> = ({journey_props, button_text, journey_id, no_booked_seats}):JSX.Element => {
   const [ journey, setJourney ] = useState<journey>({
     id: "",
     from: "",
@@ -36,30 +37,33 @@ const JourneyCard:FC<journeyInterface> = ({journeyProps, button_text, journeyId,
     price: 0,
     date: "",
     time: "",
-    availableSeats: 0,
-    bookedSeats: [],
-    totalPassengers: 0
+    available_seats: 0,
+    booked_seats: [],
+    total_passengers: 0
 })
   /*
     fetch the journey that has this id
   */
 
     useEffect(() => {
-      if(journeyProps){
-        setJourney(journeyProps)
+      if(journey_props){
+        setJourney(journey_props)
       }else{
-        let journeys = Journeys.filter(j => j.id == journeyId && j)
+        let journeys = Journeys.filter(j => j.id == journey_id && j)
         setJourney(journeys[0])
       }
 
   }, [])
 
   return (
-    <Link to={`/journey/${journey?.id || journeyId}`} className="flex w-full bg-white bg-opacity-5 backdrop-blur-3xl border border-primary border-opacity-25 shadow-xl rounded-tl-3xl rounded-br-3xl flex-col p-8 gap-3">
+    <Link to={`/journey/${journey?.id || journey_id}`} className="flex w-full bg-white bg-opacity-5 backdrop-blur-3xl border border-primary border-opacity-25 shadow-xl rounded-tl-3xl rounded-br-3xl flex-col p-8 gap-3">
       
       <div className="flex flex-col gap-2 mb-3">
 
         <div className="flex items-center justify-between">
+          <div className="absolute left-[50%] translate-x-[-50%] bg-secondary text-white size-12 center rounded-full">
+              <BiBus />
+            </div>
 
           <p className="size-4 bg-primary rounded-full"></p>
           <div className="w-11/12 bg-gradient-to-r from-primary to-secondary h-1 rounded-full"></div>
@@ -80,7 +84,7 @@ const JourneyCard:FC<journeyInterface> = ({journeyProps, button_text, journeyId,
 
       <div className="flex justify-between items-center">
         
-        <h3> { noBookedSeats ? "Seats Booked" : "Available Seats"}: <span className="font-bold"> {noBookedSeats || journey?.availableSeats}</span></h3>
+        <h3> { no_booked_seats ? "Seats Booked" : "Available Seats"}: <span className="font-bold"> {no_booked_seats || journey?.available_seats}</span></h3>
         <div className={`font-bold text-sm p-2 px-3 bg-opacity-10 bg-secondary rounded-full flex items-center gap-3 mt-3 w-fit`}>
           <div className="bg-primary size-4 rounded-full"></div>
           #{FormatPrice(journey?.price || 0)}
