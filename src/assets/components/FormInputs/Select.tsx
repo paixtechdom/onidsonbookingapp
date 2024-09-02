@@ -1,10 +1,6 @@
 import { FC } from "react"
 import { BiX } from "react-icons/bi"
 
-
-
-
-
 interface selectInterface {
     options?: any[],
     showPopUp?: string,

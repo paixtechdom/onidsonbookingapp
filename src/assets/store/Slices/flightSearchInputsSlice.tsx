@@ -5,6 +5,8 @@ type SearchInputsInterface = {
     from: string,
     to: string,
     no_of_adults: number,
+    no_of_children: number,
+    no_of_infants: number,
     tripType: string,
     class: string,
     return_date: any,
@@ -18,9 +20,11 @@ type SearchInputsInterface = {
 
 
 const initialState: SearchInputsInterface  = {
-    from: "",
-    to: "",
+    from: "Abuja",
+    to: "Epe",
     no_of_adults: 1,
+    no_of_children: 0,
+    no_of_infants: 0,
     tripType: "one-way",
     class: "Economy",
     return_date: 'new Date()',
@@ -44,6 +48,12 @@ const flightSearchInputsSlice = createSlice({
         setFlightSearch_NoOfAdultsInput: (state, action: PayloadAction<any>) => {
             state.no_of_adults = action.payload
         },
+        setFlightSearch_NoOfChildrenInput: (state, action: PayloadAction<any>) => {
+            state.no_of_children = action.payload
+        },
+        setFlightSearch_NoOfInfantsInput: (state, action: PayloadAction<any>) => {
+            state.no_of_infants = action.payload
+        },
         setFlightSearch_TripTypeInput: (state, action: PayloadAction<any>) => {
             state.tripType = action.payload
         },
@@ -63,7 +73,7 @@ const flightSearchInputsSlice = createSlice({
 })
 
 
-export const { setFlightSearch_FromInput, setFlightSearch_ToInput, setFlightSearch_NoOfAdultsInput, setFlightSearch_TripTypeInput, setFlightSearch_ClassInput, setFlightSearch_TakeOffDateInput, setFlightSearch_ReturnDateInput } = flightSearchInputsSlice.actions
+export const { setFlightSearch_FromInput, setFlightSearch_ToInput, setFlightSearch_NoOfAdultsInput, setFlightSearch_TripTypeInput, setFlightSearch_ClassInput, setFlightSearch_TakeOffDateInput, setFlightSearch_ReturnDateInput, setFlightSearch_NoOfChildrenInput, setFlightSearch_NoOfInfantsInput } = flightSearchInputsSlice.actions
 
 
 export default flightSearchInputsSlice.reducer

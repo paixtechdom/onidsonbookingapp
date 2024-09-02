@@ -155,7 +155,7 @@ const DatePicker: FC<any> = ({ setFormInputs, formInputs, label, name, activeDat
             onChange={(e) => { 
               formInputs[name] = e.target.value; 
             }}
-            className={`bg-transparent border-none py-[12px] w-full outline-white text-[12px] cursor-pointer`}
+            className={`bg-white border-none py-[12px] w-full outline-white text-[12px] cursor-pointer`}
             readOnly
             style={{ outlineWidth: 0 + 'px' }}
           />

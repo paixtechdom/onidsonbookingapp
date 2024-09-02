@@ -1,8 +1,10 @@
 import { useEffect } from "react"
 import { AppRouter } from "./AppRouter"
 import Alert from "./assets/components/Alert"
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { toggleScrolledDown } from "./assets/store/Slices/navigationSlice";
+import { Processing } from "./assets/components/Loadings/Processing";
+import { RootState } from "./assets/store/AppStore";
 
 export const DocscrollTop = () => {
   scrollTo({
@@ -13,6 +15,7 @@ export const DocscrollTop = () => {
 
 function App() {
   const dispatch = useDispatch()
+  const processing = useSelector((state: RootState) => state.processing)
   useEffect(() => {
     document.addEventListener('scroll', () => {
         dispatch(toggleScrolledDown(document.documentElement.scrollTop > 50 ? true : false))
@@ -30,6 +33,10 @@ function App() {
 
     <Alert />
     <AppRouter />
+    {
+      processing.showProcessing &&
+      <Processing /> 
+    }
 
     </main>
   )

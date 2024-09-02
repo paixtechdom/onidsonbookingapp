@@ -61,7 +61,7 @@ const FlightPage = () => {
         time: "",
         available_seats: 0,
         booked_seats: [],
-        totalPassengers: 0
+        total_passengers: 0
     })
 
     const [ selectedSeats, setSelectedSeats ] = useState<number[]>([])

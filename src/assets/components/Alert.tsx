@@ -31,7 +31,7 @@ const Alert = () => {
             alertType == "success" ? "border-green-700" :
             alertType == "info" ? "border-blue-700" :
             alertType == "error" ? "border-red-700" :
-             "border-red-700"
+            "border-red-700"
         }
         `}>
             <p className="">

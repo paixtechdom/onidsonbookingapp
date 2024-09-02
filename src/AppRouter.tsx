@@ -23,6 +23,7 @@ import BookJourney from './Pages/booking/BookJourney/BookJourney';
 import PaymentPage from './Pages/Payment/PaymentPage';
 import ProfilePage from './Pages/booking/Profile/ProfilePage';
 import BookFlight from './Pages/flight_booking/BookFlight/BookFlight';
+import FlightPage from './Pages/flight_booking/FlightPage/page';
 
 const HomePage = lazy(() => import('./Pages/home/page'))
 // const HomePage = lazy(() => import('./Pages/user/Home/HomePage'))
@@ -68,6 +69,7 @@ export const AppRouter = () => {
                         <Route path="/email_verification" element={<EmailVerificationPage />}/>
                         <Route path="/booking/my-journeys" element={<MyJourneys />}/>
                         <Route path="/journey/:id" element={<JourneyPage />}/>
+                        <Route path="/flight/:id" element={<FlightPage />}/>
                         <Route path="/payment" element={<PaymentPage />}/>
 
 

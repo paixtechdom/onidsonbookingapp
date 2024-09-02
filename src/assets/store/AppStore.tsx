@@ -3,6 +3,7 @@ import navigationReducer from "./Slices/navigationSlice"
 import alertReducer from "./Slices/AlertSlice"
 import userReducer from "./Slices/userSlice"
 import flightSearchInputsReducer from "./Slices/flightSearchInputsSlice"
+import processingReducer from "./Slices/ProcessingSlice"
 
 
 export const store = configureStore({
@@ -11,6 +12,7 @@ export const store = configureStore({
         alert: alertReducer,
         user: userReducer,
         flightSearchInputs: flightSearchInputsReducer,
+        processing: processingReducer,
     }
 })
 
