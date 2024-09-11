@@ -1,30 +1,78 @@
 import FlightCard, { flight } from '../../../assets/components/FlightCard'
 import { h2 } from '../../../assets/StyleClasses'
 import { Flights } from '../../../assets/Constants'
+import { Airports } from '../../../assets/Airports'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../../assets/store/AppStore'
 import { FiFilter } from 'react-icons/fi'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { RadioSelect } from '../../../assets/components/FormInputs/RadioSelect'
 import { Button } from '../../../assets/components/utils/Button'
+import { FC } from "react"
 
-export const FlightSearchResults = ({}) => {
+
+
+export const GetAirportLocation = (airportName : string) => {
+
+    const foundAirport = Airports.find((airport : any) => airport.airport_name === airportName || airport.airport_name.includes(airportName));
+    
+    
+    if (foundAirport) {
+        return `${foundAirport.city_name}, ${foundAirport.country_name}`;
+    }
+    
+    return 'Unknown location'; // Fallback if not found
+};
+  
+
+
+
+
+
+
+export const FlightSearchResults:FC<any> = ({fetched_flights}) => {
+    // useEffect(() => {
+    //     console.log("results")
+    //     // console.log(airports)
+    //     console.log("results")
+    // }, [])
+
     const FlightSlice = useSelector((state: RootState) => state.flightSearchInputs)
+
   return (
     <section id="searchResults" className="center flex-col  gap-9 mt-9 w-11/12">
         <div className="flex flex-col lg:items-center w-full gap-4 lg:flex-row lg:flex-wrap">
+
             <h2 className={`${h2} w-full lg:w-fit`}>({Flights.length}) Available Flight{Flights.length > 1 ? 's' : ""} </h2>
+
             <div className="w-full lg:w-fit ">
                 From <span className='font-bold'>{FlightSlice.from}</span> to <span className="font-bold">{FlightSlice.to}</span>
             </div>
+
         </div>
 
         <div className="flex w-full gap-9 relative">
+
             <FlightSearchFilters />
             
             <div className="flex flex-col gap-6 w-full">
                 <div className="grid md:grid-co ls-2 lg:grid-co ls-3 w-full gap-9 lg:gap-6 xl:gap-9 gap-y-16">
-                {
+
+                {   
+                    // fetched_flights < 1 ?
+                    fetched_flights.map((flight : any , i : number) =>(
+                        <div key={i}>  
+                            <FlightCard  
+                                key={i}  
+                                flight_props={flight}  
+                            />
+                        </div>
+                    )) 
+
+                    // : 
+                    // <div className="text-3xl font-bold">Hello world{fetched_flights.length}</div>
+                }
+                {/* {
                     Flights.map(flight =>(
                     <FlightCard 
                         key={flight.id} 
@@ -32,7 +80,7 @@ export const FlightSearchResults = ({}) => {
                         button_text={"Book Now"}
                     />
                     ))
-                }
+                } */}
                 </div>
             </div>
         </div>
@@ -74,10 +122,11 @@ export const FlightSearchFilters = () => {
                     <h3 className="font-bold uppercase ">Filter</h3> 
                     <FiFilter />
                 </div>
-                <p className='text-sm '>use ref to clear checkbox</p>
-                <p className='text-sm'>Data format from API </p>
-                <p className='text-sm'>More details</p>
-                <p className='text-sm'>Will image of Airline be provided?</p>
+                
+                <p className='text-sm'>Flight Prices</p>
+                
+                
+                
 
                <div className="flex flex-col gap-3 my-5">
                     <div className="flex flex-wrap gap-3 items-center">
@@ -98,8 +147,8 @@ export const FlightSearchFilters = () => {
 
                     <div className="flex flex-wrap gap-3 items-center">
                         {
-                            stops.map(a => (
-                                <div className={`rounded size-9  ${filters.stops == a ? "bg-primary border-none font-bold" : ""} shadow border border-secondary center border-opacity-30 cursor-pointer transition-all duration-500`} onClick={() => {
+                            stops.map((a, i) => (
+                                <div key={i} className={`rounded size-9  ${filters.stops == a ? "bg-primary border-none font-bold" : ""} shadow border border-secondary center border-opacity-30 cursor-pointer transition-all duration-500`} onClick={() => {
                                     setFilters({
                                         ...filters,
                                         stops: a
@@ -133,9 +182,9 @@ export const FlightSearchFilters = () => {
 
                     <div className="flex flex-wrap gap-3 flex-col items-center w-full">
                         {
-                            airlines.map(airline => (
-                                <div className="flex items-center gap-2 w-full cursor-pointer">
-                                    <input type="checkbox" name={airline} id="" 
+                            airlines.map((airline, i) => (
+                                <div key={i} className="flex items-center gap-2 w-full cursor-pointer">
+                                    <input type="checkbox" checked={filters.airlines.includes(airline)} name={airline} id="" 
                                     onChange={() => {
                                         if(filters.airlines.includes(airline)){
                                             const newList = filters.airlines.filter(a => a !== airline)
@@ -184,6 +233,83 @@ export const FlightSearchFilters = () => {
 
 
 
+
+
+
+
+
+{/* 
+    ********FOR FLIGHT CARD***************
+    airline name - Y
+    airline logo - N
+    amount - N    
+    airport name - Y - arrival and departure
+    departure - Y
+    arrival - Y
+    takeofftime - Y
+    arrivaltime - Y
+    stops - N 
+    code for takeoff and arrival - Y
+    total duraion - Y - arrival - takeoff
+
+    refundable?
+*/}
+
+{/*
+
+    aircraft: null,
+    
+    airline: {
+        name: 'Thai Airways International', 
+        iata: 'TG', 
+        icao: 'THA'
+    },
+    arrival: {
+        actual : null
+        actual_runway : null
+        airport : "Suvarnabhumi International"
+        baggage : "19"
+        delay : null
+        estimated : "2024-09-11T06:15:00+00:00"
+        estimated_runway : null
+        gate : null
+        iata : "BKK"
+        icao : "VTBS"
+        scheduled : "2024-09-11T06:15:00+00:00"
+        terminal : null
+        timezone : "Asia/Bangkok"
+    },
+    departure : {
+        actual : null
+        actual_runway : null
+        airport : "Hyderabad Airport"
+        delay : null
+        estimated : "2024-09-11T01:10:00+00:00"
+        estimated_runway : null
+        gate : "25A"
+        iata : "HYD"
+        icao : "VOHS"
+        scheduled : "2024-09-11T01:10:00+00:00"
+        terminal : "MAIN"
+        timezone : "Asia/Kolkata"
+    },
+    
+    flight : {
+        codeshared : null
+        iata : "TG330"
+        icao : "THA330"
+        number : "330"
+    },
+    
+    flight_date : "2024-09-11"
+    flight_status : "scheduled"
+    live : null
+
+*/}
+
+
+
+
 {/* <>
     FILTERS <br />
     Fastest flights, cheapest <br />
@@ -209,4 +335,11 @@ export const FlightSearchFilters = () => {
     Baggage inclusion <br />
 
 
-    if is round trip - specify on card if na depart or return <br /> */}
+    if is round trip - specify on card if na depart or return <br /> 
+    
+    
+    
+    
+    
+    
+    */}

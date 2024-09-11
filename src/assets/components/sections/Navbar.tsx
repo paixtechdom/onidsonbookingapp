@@ -12,6 +12,7 @@ import logo from "../../images/Onidson sm.png"
 
 
 export const Navbar = () => {
+    
     const navigation = useSelector((state: RootState) => state.navigation)
     const user = useSelector((state: RootState) => state.user)
     const dispatch = useDispatch()
@@ -134,7 +135,7 @@ export const Navbar = () => {
                                 ))
                             }
                             {
-                                sessionToken == undefined &&
+                                sessionToken == null &&
                                 <Link to="/login">
                                     Login
                                 </Link>                               
@@ -155,7 +156,7 @@ export const Navbar = () => {
                     </div>  
                     
                     {
-                        sessionToken !== undefined &&
+                        sessionToken !== null &&
                         <Link to="/profile" className="relative size-10 center border-2 rounded-full border-secondary bg-secondary cursor-pointer">
                             <div className="center font-bold text-xl text-white">
                                 {userName[0]}

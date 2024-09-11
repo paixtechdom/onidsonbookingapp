@@ -3,38 +3,34 @@ import {  main, mainChild } from "../../../assets/StyleClasses";
 import { BsChevronDown } from "react-icons/bs";
 import { Locations, Flights as AllFlights } from "../../../assets/Constants";
 import { FlightSearchForm } from "./FlightSearchForm";
-import { FlightSearchResults } from "./FlightSearchResults";
+import { FlightSearchResults, GetAirportLocation } from "./FlightSearchResults";
 import { Processing, useProcessing } from "../../../assets/components/Loadings/Processing";
 import { FaPlane } from "react-icons/fa6";
 import { RootState } from "../../../assets/store/AppStore";
 import { useSelector } from "react-redux";
+import axios from "axios"
+
 
 
 const BookFlight = () => {
   const FlightSlice = useSelector((state: RootState) => state.flightSearchInputs)
-  const toggleProcessing = useProcessing()
-  const a = 
+    const toggleProcessing = useProcessing()
 
-    <div className="flex flex-col gap-4 center">
-      <h2 className="text-secondary-text-xl font-bold">
-        Searching for Flights
-      </h2>
-
-      <div className="flex flex-col">
-
-        {FlightSlice.from}
-        <FaPlane className="text-secondary text-2xl"/>
-        {FlightSlice.to}
-      </div>
-    </div>
+    const [ fetched_flights, set_fetched_flights ] = useState([])
 
 
   useEffect(() => {
-    // toggleProcessing(true, a)
-    setTimeout(() => {
+    // toggleProcessing(true, "searching_for_flights")
+    // setTimeout(() => {
       // toggleProcessing(false)
       
-    }, 2000);
+    // }, 2000);
+
+    // axios.get("https://api.aviationstack.com/v1/flights?access_key=be74df54fa508341cfe8d35beda0f8ad")
+    // .then((response)=>{
+    //   set_fetched_flights(response.data.data)
+    //   console.log(response.data.data)
+    // })
   }, [])
 
 
@@ -45,11 +41,11 @@ const BookFlight = () => {
       <div className={`${mainChild}`}>
 
 
-      <FlightSearchForm />
+      {/* <FlightSearchForm /> */}
       
       </div>
 
-      <FlightSearchResults />
+      <FlightSearchResults fetched_flights={fetched_flights}/>
        
 
         

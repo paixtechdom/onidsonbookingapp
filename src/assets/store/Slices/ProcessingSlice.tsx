@@ -2,12 +2,12 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 export interface ProcessingInterface{
     showProcessing: boolean,
-    processingMessage?: JSX.Element,
+    processingMessage?: string,
 }
 
 const initialState: ProcessingInterface = {
     showProcessing: false,
-    processingMessage: <></>,
+    processingMessage: "",
 }
 
 const ProcessingSlice = createSlice({
@@ -17,7 +17,7 @@ const ProcessingSlice = createSlice({
         toggleShowProcessing: (state, action: PayloadAction<boolean>) => {
             state.showProcessing = action.payload;
         },      
-        setProcessingMessage: (state, action: PayloadAction<JSX.Element>) => {
+        setProcessingMessage: (state, action: PayloadAction<string>) => {
             state.processingMessage = action.payload
         }
     }

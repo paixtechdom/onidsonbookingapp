@@ -74,7 +74,8 @@ export const FlightSearchForm = () => {
     <form className={`${formField} w-full`}>
           {/* <h2 className={`${h2} col-sp an-2 w-full`}>Enter your flight details</h2> */}
           <>
-            <div className="flex items-center gap-4"> 
+            <div className="flex items-center gap-4 w-full flex-col lg:flex-row"> 
+
               <div className="flex items-center gap-4 w-full"> 
                 <RadioSelect
                   options={['One way', 'Round trip']}

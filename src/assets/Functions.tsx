@@ -24,6 +24,8 @@ export  const ArrayFromNumber = (num: number): number[] => {
   }
 
 export const FormatPrice = (num: number): any => {
+
+
   let formatedString = ""
   num.toString().split('').reverse().forEach((a, i) => 
     formatedString += (i) % 3 == 0 && i !== 0 ? `,${a}` : a
@@ -31,3 +33,5 @@ export const FormatPrice = (num: number): any => {
 
   return formatedString.split('').reverse()
 }
+
+

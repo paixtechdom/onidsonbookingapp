@@ -17,7 +17,7 @@ type UserDetailsInterface = {
 type UserInterface = {
     userDetails: UserDetailsInterface
     bookedJourneys: string[],
-    sessionToken: string | undefined
+    sessionToken: string | null
 }
 
 
@@ -31,7 +31,7 @@ const initialState: UserInterface  = {
         phone_number: ""
     },
     bookedJourneys: ["lagos-abuja", "abuja-port"],
-    sessionToken: undefined
+    sessionToken: null
 }
 
  

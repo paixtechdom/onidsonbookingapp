@@ -16,6 +16,8 @@
             show buy ticket which will direct to payment if loggedin and logged in if not
     else
         go to login page
+
+    
         
 */
 

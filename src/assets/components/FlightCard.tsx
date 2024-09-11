@@ -7,6 +7,7 @@ import { FormatPrice } from "../Functions"
 import { Flights } from "../Constants"
 import { FaPlane } from "react-icons/fa"
 import { FaNairaSign } from "react-icons/fa6"
+import { GetAirportLocation } from "../../Pages/flight_booking/BookFlight/FlightSearchResults"
 
 export interface flight{
   id: string,
@@ -23,28 +24,35 @@ export interface flight{
 }
 
 export interface flightInterface{
-    flight_props?: flight,
-    button_text: string,
-    flight_id?: string
+  flight_props?: flight,
+  flight_id?: string
 }
 
 // passing flight_id means the fetching of the flight detaills will be done here
 // but if not the flight details will be passed down as props
 
-const FlightCard:FC<flightInterface> = ({flight_props, button_text, flight_id}):JSX.Element => {
-  const [ flight, setFlight ] = useState<flight>({
-    id: "",
-    from: "",
-    to: "",
-    price: 0,
-    takeoff_date: "",
-    return_date: "",
-    time: "",
-    duration: "",
-    stops: 0,
-    booked_seats: [],
-    total_passengers: 0
-})
+// const FlightCard:FC<flightInterface> = ({flight_props, button_text, flight_id}):JSX.Element => {
+  //     {
+  //     id: "",
+  //     from: "",
+  //     to: "",
+  //     price: 0,
+  //     takeoff_date: "",
+  //     return_date: "",
+  //     time: "",
+  //     duration: "",
+  //     stops: 0,
+  //     booked_seats: [],
+  //     total_passengers: 0
+  // }
+  // )
+
+
+
+const FlightCard:FC<any> = ({flight_props, flight_id}):JSX.Element => {
+  // const [ flight, setFlight ] = useState<flight>(any)
+  const [ flight, setFlight ] = useState<any>(null)
+
   /*
     fetch the flight that has this id
   */
@@ -65,11 +73,13 @@ const FlightCard:FC<flightInterface> = ({flight_props, button_text, flight_id}):
 
       <div className="flex bg-white white bg-opacity-1 0 backdrop-blur-2xl  justify-between gap- divide-x-2 divide-zinc-300 z-10 p-5 min-h-[30vh] m-2 rounded-lg items-center">
         
+        
         <div className="w-3/12 flex flex-col gap-3 justify-between">
-          <img src={`airline.img`} alt="Airline Image" />
-          <h2 className="font-bold">{'{{airline.name}}'}</h2>
+          <img src={`https://logos.skyscnr.com/images/airlines/favicon/EZ.png`} alt="Airline Image" />
+          <h2 className="font-bold">{flight?.airline?.name}</h2>
 
           <div className={`font-bold flex items-center gap-1  w-fit`}>
+              {/* <FaNairaSign className="text-sm"/>{FormatPrice(flight?.price || 0)} */}
               <FaNairaSign className="text-sm"/>{FormatPrice(flight?.price || 0)}
             </div>
           <p className="underline text-base text-secondary cursor-pointer">
@@ -77,8 +87,9 @@ const FlightCard:FC<flightInterface> = ({flight_props, button_text, flight_id}):
           </p>
         </div>
 
+
         <div className="flex flex-col gap-4 w-full mx-3 px-3">
-          <h3 className="uppercase font-bold">{'{{airport.name}}'}</h3>
+          <h3 className="uppercase font-bold">{flight?.departure?.airport}</h3>
 
           <div className="flex flex-col gap-2 mb-3">  
 
@@ -100,20 +111,30 @@ const FlightCard:FC<flightInterface> = ({flight_props, button_text, flight_id}):
           <div className="flex items-center justify-between">
 
             <div className="flex flex-col gap-3">
-              <h3 className="text-sm"><span className="font-bold text-base"> {flight?.from}</span></h3>
-              <p>DXB</p>
-              <p className={`${fadedBold}`}>{flight?.time}</p>
+              <h3 className="text-sm"><span className="font-bold text-base">
+
+                 {GetAirportLocation(flight?.departure?.airport)}
+                 
+                </span></h3>
+              <p>{flight?.departure?.iata}</p>
+              <p className={`${fadedBold}`}>{flight?.departure?.scheduled}</p>
             </div>
 
             <div className="flex flex-col gap-3 items-center">
-              <p className={`text-sm underline mt-4`}>{flight?.duration}</p>
-              <h3> <span className="font-bold">{flight?.stops}</span> Stop{flight.stops > 1 || flight.stops == undefined ? "s" : ""}</h3>
+              <p className={`text-sm underline mt-4`}>
+                {/* {flight?.departure?.scheduled - flight?.arrival?.scheduled} */} Arrival - departure
+              </p>
+              <h3>Stops: null
+                {/* <span className="font-bold">{flight?.stops}</span> Stop{flight.stops > 1 || flight.stops == undefined ? "s" : ""} */}
+              </h3>
             </div>
 
             <div className="flex flex-col gap-3 items-end">
-              <h3 className="text-sm text-right"> <span className="font-bold text-base"> {flight?.to}</span></h3>
-              <p>ABV</p>
-              <p className={`${fadedBold}`}>3:30 PM</p>
+              <h3 className="text-sm text-right"> <span className="font-bold text-base"> 
+              {GetAirportLocation(flight?.arrival?.airport)}
+              </span></h3>
+              <p>{flight?.arrival?.iata}</p>
+              <p className={`${fadedBold}`}>{flight?.arrival?.scheduled}</p>
             </div>
 
           </div>
@@ -123,7 +144,7 @@ const FlightCard:FC<flightInterface> = ({flight_props, button_text, flight_id}):
         {/* <div className="flex flex-col w-2/12">
           
           <Button 
-            text={button_text}
+            text={"Book now"}
             className="bg-secondary text-white mt-7 w-full"
           />
         </div> */}
