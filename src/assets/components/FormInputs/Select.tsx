@@ -16,7 +16,7 @@ interface selectInterface {
 export const Select:FC<selectInterface> = ({setShowPopUp, showPopUp, options, formInputs, name, label, gridDisplay, setFormInputs}) => {
    
     return(
-        <div className={`absolute w-full flex flex-col bg-primary bg-opacity-5 backdrop-blur-3xl border border-primary shadow-xl rounded-xl h-fit gap-6 p-9 transition-all duration-500 ${showPopUp == name ? 'z-10' : '-z-10 opacity-[0] scale-[0.8] translate-y-32'} max-h-[70vh] overflow-y-auto`}>
+        <div className={`absolute w-full lg:min-w-[350px] flex flex-col bg-primary bg-opacity-5 backdrop-blur-3xl border border-primary shadow-xl rounded-xl h-fit gap-6 p-9 transition-all duration-500 ${showPopUp == name ? 'z-10' : '-z-10 opacity-[0] scale-[0.8] translate-y-32'} max-h-[70vh] overflow-y-auto`}>
 
             <div className="text-xl w-full flex justify-between items-center cursor-pointer sticky top-0 bg-primary bg-opacity-5 backdrop-blur-3xl z-20 p-3 px-6 rounded-full" onClick={() => {setShowPopUp(false)}}>
                 <label htmlFor={label} className="font-bold text-black">
@@ -29,14 +29,14 @@ export const Select:FC<selectInterface> = ({setShowPopUp, showPopUp, options, fo
 
                 {
                     options?.map((o, i) => (
-                        <div key={i} className={`py-3 border-l-4 border-primary px-3 w-full rounded-lg shadow-xl cursor-pointer hover:bg-gray-200 transition-all duration-500 active:bg-gray-200 ${formInputs[name] == o ? "bg-white" : ""}`} onClick={() => {
+                        <div key={i} className={`py-3 border-l-4 border-primary px-3 w-full rounded-lg shadow-xl cursor-pointer hover:bg-gray-200 transition-all duration-500 active:bg-gray-200 capitalize ${formInputs[name] == o ? "bg-white" : ""}`} onClick={() => {
                             setFormInputs({
                                 ...formInputs,
                                 [name]: o
                             })
                             setShowPopUp('')
                         }}>
-                            {o}
+                            {o.replace("-", " ")}
                         </div>
                     ))
                 }

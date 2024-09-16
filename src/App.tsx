@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { toggleScrolledDown } from "./assets/store/Slices/navigationSlice";
 import { Processing } from "./assets/components/Loadings/Processing";
 import { RootState } from "./assets/store/AppStore";
+import { FlightDetails } from "./Pages/booking/MyJourneys/FlightDetails";
 
 export const DocscrollTop = () => {
   scrollTo({
@@ -16,6 +17,9 @@ export const DocscrollTop = () => {
 function App() {
   const dispatch = useDispatch()
   const processing = useSelector((state: RootState) => state.processing)
+  const navigationSlice = useSelector((state: RootState) => state.navigation)
+    
+
   useEffect(() => {
     document.addEventListener('scroll', () => {
         dispatch(toggleScrolledDown(document.documentElement.scrollTop > 50 ? true : false))
@@ -36,6 +40,12 @@ function App() {
     {
       processing.showProcessing &&
       <Processing /> 
+    }
+    {
+      navigationSlice.currentFlightId !== "" &&
+      <FlightDetails 
+        currentFlightId={navigationSlice.currentFlightId}
+      />
     }
 
     </main>

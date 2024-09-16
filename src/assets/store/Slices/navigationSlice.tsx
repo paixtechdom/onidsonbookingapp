@@ -8,6 +8,8 @@ type NavInterface = {
     currentDropDownIndex: number,
     scrolledDown: boolean,
     currentDropDown: string;
+    currentFlightId: string;
+
 }
 
 
@@ -16,7 +18,8 @@ const initialState: NavInterface  = {
     currentNav: 0,
     currentDropDownIndex: 0,
     scrolledDown: false,
-    currentDropDown: ""    
+    currentDropDown: "",
+    currentFlightId: ""    
 }
 
  
@@ -40,11 +43,14 @@ const navigationSlice = createSlice({
         setCurrentDropDown: (state, action: PayloadAction<string>) => {
             state.currentDropDown = action.payload
         },
+        setCurrentFlightId: (state, action: PayloadAction<string>) => {
+            state.currentFlightId = action.payload
+        },
     }
 })
 
 
-export const { toggleShowNav, setCurrentNav, setCurrentDropDownIndex, toggleScrolledDown, setCurrentDropDown } = navigationSlice.actions
+export const { toggleShowNav, setCurrentNav, setCurrentDropDownIndex, toggleScrolledDown, setCurrentDropDown, setCurrentFlightId } = navigationSlice.actions
 
 
 export default navigationSlice.reducer

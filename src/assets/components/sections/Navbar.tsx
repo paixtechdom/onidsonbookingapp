@@ -106,7 +106,7 @@ export const Navbar = () => {
                                         {
                                             nav.sublinks ?
                                             <div className={`flex flex-col gap-[1px] w-full overflow-hidden transition-all duration-200 lg:duration-1000 lg:absolute lg:min-w-[250px] bg-opacity-20 lg:bg-opacity-100 bg-primary
-                                            ${currentDropDown == nav.title ? 'lg:top-[7vh] lg:left-0' : 'h-0 lg:h-fit text-[0px]  lg:-top-[350px]'} lg:shadow-xl`}>
+                                            ${currentDropDown == nav.title ? 'lg:top-[7vh] lg:left-0' : 'h-0 lg:h-fit text-[0px] lg:-top-[350px]'} lg:shadow-xl`}>
         
                                                 {   
                                                     nav?.sublinks?.map((sublink:any, j:number) => (

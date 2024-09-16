@@ -1,7 +1,7 @@
 
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
-type SearchInputsInterface = {
+export type SearchInputsInterface = {
     from: string,
     to: string,
     no_of_adults: number,

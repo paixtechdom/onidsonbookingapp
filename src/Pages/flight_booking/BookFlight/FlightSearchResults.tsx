@@ -9,24 +9,7 @@ import { useEffect, useState } from 'react'
 import { RadioSelect } from '../../../assets/components/FormInputs/RadioSelect'
 import { Button } from '../../../assets/components/utils/Button'
 import { FC } from "react"
-
-
-
-export const GetAirportLocation = (airportName : string) => {
-
-    const foundAirport = Airports.find((airport : any) => airport.airport_name === airportName || airport.airport_name.includes(airportName));
-    
-    
-    if (foundAirport) {
-        return `${foundAirport.city_name}, ${foundAirport.country_name}`;
-    }
-    
-    return 'Unknown location'; // Fallback if not found
-};
-  
-
-
-
+import { FormatDate, GetAirportLocation, calculateTimeDifference } from "../../../assets/Functions"
 
 
 
@@ -40,50 +23,80 @@ export const FlightSearchResults:FC<any> = ({fetched_flights}) => {
     const FlightSlice = useSelector((state: RootState) => state.flightSearchInputs)
 
   return (
-    <section id="searchResults" className="center flex-col  gap-9 mt-9 w-11/12">
-        <div className="flex flex-col lg:items-center w-full gap-4 lg:flex-row lg:flex-wrap">
+    <section id="searchResults" className="center flex-col  gap-9 pt-[10vh] w-11/12">
+        {
+            fetched_flights.length > 0 ?
+            <>
+                <div className="flex flex-col lg:items-center w-full gap-4 lg:flex-row lg:flex-wrap">
 
-            <h2 className={`${h2} w-full lg:w-fit`}>({Flights.length}) Available Flight{Flights.length > 1 ? 's' : ""} </h2>
+                    <h2 className={`${h2} w-full lg:w-fit`}>({fetched_flights.length}) Available Flight{fetched_flights.length > 1 ? 's' : ""} </h2>
 
-            <div className="w-full lg:w-fit ">
-                From <span className='font-bold'>{FlightSlice.from}</span> to <span className="font-bold">{FlightSlice.to}</span>
-            </div>
+                    <div className="w-full lg:w-fit ">
+                        From <span className='font-bold'>{FlightSlice.from}</span> to <span className="font-bold">{FlightSlice.to}</span>
+                    </div>
 
-        </div>
-
-        <div className="flex w-full gap-9 relative">
-
-            <FlightSearchFilters />
-            
-            <div className="flex flex-col gap-6 w-full">
-                <div className="grid md:grid-co ls-2 lg:grid-co ls-3 w-full gap-9 lg:gap-6 xl:gap-9 gap-y-16">
-
-                {   
-                    // fetched_flights < 1 ?
-                    fetched_flights.map((flight : any , i : number) =>(
-                        <div key={i}>  
-                            <FlightCard  
-                                key={i}  
-                                flight_props={flight}  
-                            />
-                        </div>
-                    )) 
-
-                    // : 
-                    // <div className="text-3xl font-bold">Hello world{fetched_flights.length}</div>
-                }
-                {/* {
-                    Flights.map(flight =>(
-                    <FlightCard 
-                        key={flight.id} 
-                        flight_props={flight} 
-                        button_text={"Book Now"}
-                    />
-                    ))
-                } */}
                 </div>
+
+                <div className="flex w-full gap-9 relative">
+
+                    <FlightSearchFilters />
+                    
+                    <div className="flex flex-col gap-6 w-full">
+                        <div className="grid md:grid-co ls-2 lg:grid-co ls-3 w-full gap-9 lg:gap-6 xl:gap-9 gap-y-16">
+
+                        {   
+                            // fetched_flights < 1 ?
+                            fetched_flights.map((flight : any , i : number) =>(
+                                <div key={i}>  
+                                    <FlightCard  
+                                        id={i}  
+
+                                        flight_props={flight}  
+                                        
+                                        airline={flight?.airline?.name}
+
+                                        price={flight?.price}
+
+                                        departureAirport={flight?.departure?.airport}
+
+                                        departureLocation={GetAirportLocation(flight?.departure?.Location)}
+
+                                        departureIata={flight?.departure?.iata}
+                                        
+                                        departureDate={FormatDate(flight?.departure?.scheduled)}
+
+                                        arrivalLocation={GetAirportLocation(flight?.arrival?.Location)}
+                                        
+                                        arrivalIata={flight?.arrival?.iata}
+                                        
+                                        arrivalDate={FormatDate(flight?.arrival?.scheduled)}
+
+                                        duration={calculateTimeDifference(flight?.departure?.scheduled, flight?.arrival?.scheduled)}
+
+                                    />
+                                </div>
+                            )) 
+
+                            // : 
+                            // <div className="text-3xl font-bold">Hello world{fetched_flights.length}</div>
+                        }
+                        {/* {
+                            Flights.map(flight =>(
+                            <FlightCard 
+                                key={flight.id} 
+                                flight_props={flight} 
+                                button_text={"Book Now"}
+                            />
+                            ))
+                        } */}
+                        </div>
+                    </div>
+                </div>
+            </> : 
+            <div className="font-bold uppercase text-xl mt-9">
+                No flight found
             </div>
-        </div>
+        }
     
   </section>
   )
@@ -116,6 +129,7 @@ export const FlightSearchFilters = () => {
     return(
         <div className="flex flex-col h-fit w-4/12 p-2 stic ky t op-[15vh] relative">
             <div className="absolute top-0 left-0 bg-gradient-to-tr from-secondary to-primary opacity-30 h-full w-full z-0 rounded-xl"></div>
+            filter with arrival time and departure time
 
             <div className="bg-white h-full w-full rounded-lg z-10 p-4 flex flex-col gap-4">
                 <div className="flex justify-between items-center">

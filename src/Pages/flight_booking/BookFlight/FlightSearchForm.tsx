@@ -12,9 +12,10 @@ import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../../assets/store/AppStore'
 import { setFlightSearch_ClassInput, setFlightSearch_FromInput, setFlightSearch_NoOfAdultsInput, setFlightSearch_NoOfChildrenInput, setFlightSearch_NoOfInfantsInput, setFlightSearch_ReturnDateInput, setFlightSearch_TakeOffDateInput, setFlightSearch_ToInput, setFlightSearch_TripTypeInput } from '../../../assets/store/Slices/flightSearchInputsSlice'
 import { NumberInput, NumberInputsParent } from "../../../assets/components/FormInputs/NumberInput"
+import { AutoCompleteOptions } from '../../../assets/components/FormInputs/AutoCompleteOptions'
 
 
-export const FlightSearchForm = () => {
+export const FlightSearchForm:FC<any> = ({FetchFlights}) => {
     const dispatch = useDispatch()
     const FlightSlice = useSelector((state: RootState) => state.flightSearchInputs)
     const todaysDate = new Date()
@@ -72,21 +73,47 @@ export const FlightSearchForm = () => {
     
   return (
     <form className={`${formField} w-full`}>
-          {/* <h2 className={`${h2} col-sp an-2 w-full`}>Enter your flight details</h2> */}
+          {/*
+            <h2 className={`${h2} col-sp an-2 w-full`}>
+              Have specific airports we cover, after selecting from return all possible to locations, have a drop down of the list
+            </h2>
+          */}
+
           <>
             <div className="flex items-center gap-4 w-full flex-col lg:flex-row"> 
 
               <div className="flex items-center gap-4 w-full"> 
-                <RadioSelect
+                
+                {/* <RadioSelect
                   options={['One way', 'Round trip']}
                   formInputs={formInputs}
                   label=''
                   name='tripType'
                   setFormInputs={setFormInputs}
                   flex={'row'}
-                />
+                /> */}
+
+                <InputField 
+                  type="text"
+                  name="tripType"
+                  handleChange={handleChange}
+                  value={formInputs.tripType}
+                  func={() => setShowPopUp('tripType')}
+                  icon={<BsChevronDown />}
+                  >
+                    <Select
+                      setFormInputs={setFormInputs}  
+                      formInputs={formInputs} 
+                      setShowPopUp={setShowPopUp} 
+                      showPopUp={showPopUp}
+                      name={"tripType"}
+                      label="Trip Type"
+                      options = {["One Way", "Round Trip"]} 
+                      />
+                </InputField>
 
               </div>
+
 
               <div className="flex items-center w-full gap-3">
                 <input type="checkbox" name="flexible_dates" id="" className='scale-[1.3] bg-red-300 text-red-300' checked={formInputs.flexible_dates} onChange={(e) => {setFormInputs({
@@ -97,6 +124,8 @@ export const FlightSearchForm = () => {
                 <p className={`${formInputs.flexible_dates ? "font-bold text-secondary" : "text-gray-600"} cursor-pointer`} >Flexible Dates (+/-3 days)</p>
               </div>
             </div>
+
+
 
             <div className="flex items-center gap-3 flex-col lg:flex-row w-full">
             <InputField 
@@ -117,6 +146,8 @@ export const FlightSearchForm = () => {
                   options = {ClassOfService} 
                   />
             </InputField>
+
+
             <InputField 
               type="text"
               name="no_of_persons"
@@ -140,6 +171,7 @@ export const FlightSearchForm = () => {
                     setFormInputs={setFormInputs}  
                     formInputs={formInputs} 
                     />
+
                   <NumberInput 
                     label={"Children"}
                     desc={'2 - 12 years'}
@@ -148,6 +180,7 @@ export const FlightSearchForm = () => {
                     setFormInputs={setFormInputs}  
                     formInputs={formInputs} 
                     />
+
                   <NumberInput 
                     label={"Infants"}
                     desc={'< 2 years'}
@@ -156,12 +189,14 @@ export const FlightSearchForm = () => {
                     setFormInputs={setFormInputs}  
                     formInputs={formInputs} 
                   />
+
                 </>
               </NumberInputsParent>
             </InputField>
               </div>
 
             <div className="flex items-center gap-3 lg:gap-3 flex-col lg:flex-row w-full">
+
               <InputField 
                 label="From"
                 type="text"
@@ -169,7 +204,16 @@ export const FlightSearchForm = () => {
                 handleChange={handleChange}
                 value={formInputs.from}
                 isRequired={true}
-              />
+              > 
+
+                <AutoCompleteOptions 
+                  value={formInputs}
+                  setValue={setFormInputs}
+                  name={'from'}
+                  // fetchLocations
+                />
+
+              </InputField>
 
               <InputField 
                 label="To"
@@ -191,7 +235,7 @@ export const FlightSearchForm = () => {
               setActiveDatePicker={setActiveDatePicker}
               />
             {
-              formInputs.tripType == "round-trip" &&
+              formInputs.tripType == "Round Trip" &&
               <DatePicker
               label={'Return Date'} 
               name={'return_date'}
@@ -211,6 +255,7 @@ export const FlightSearchForm = () => {
             document.querySelector('#searchResults')?.scrollIntoView({
               behavior: "smooth"
             })
+            FetchFlights()
           }}
           className="col-span -2 cent er mt-3 w-full">
             <Button 

@@ -60,6 +60,7 @@ import abuja from "../assets/images/abuja.jpg"
 
 // merge courses into services - aviation trainings
 
+
 export const servicesList = [
     {
         title: "Interstate Travelling",
@@ -452,18 +453,19 @@ export const servicesList = [
     
 ];
 
-
-
-
 export const NavInfo = [
+
+
     {
         title: 'Home',
         link: '',
     },
+
     {
         title: 'About',
         link: 'about',
     },
+
     {
         title: 'Services',
         link: 'services',
@@ -491,6 +493,7 @@ export const NavInfo = [
         ]
         
     },
+
     {
         title: 'Booking',
         link: '',
@@ -504,8 +507,9 @@ export const NavInfo = [
                 link: 'book-flight',
             },
             {
-                title: 'My Journeys',
-                link: 'my-journeys',
+                title: 'My Flights',
+                link: 'my-flights',
+                // link: 'my-journeys',
             },
         ]
         
@@ -526,11 +530,11 @@ export const NavInfo = [
         ] 
     },
     
-  
     {
         title: 'Contact',
         link: 'contact',
-    },
+    }
+
 ]
 
 
@@ -551,22 +555,25 @@ export const AccountNavInfo = [
 ]
 
 export const Locations = [
+
     {
         id: "lagos",
         location: "Lagos",
         terminal: ''
-
     },
+
     {
         id: "abuja",
         location: "Abuja",
         terminal: ''
     },
+
     {
         id: "port-harcourt",
         location: "Port Harcourt",
         terminal: ''
     }
+
 ]
 
 export const Journeys = [
